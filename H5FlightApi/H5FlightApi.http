@@ -1,0 +1,6 @@
+@H5FlightApi_HostAddress = http://localhost:5132
+
+GET {{H5FlightApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
