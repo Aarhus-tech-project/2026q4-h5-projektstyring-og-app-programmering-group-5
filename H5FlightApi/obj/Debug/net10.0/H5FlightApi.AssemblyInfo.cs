@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("H5FlightApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1f1d70a565bb7492ef94c28195a6f5757d24c7cb")]
 [assembly: System.Reflection.AssemblyProductAttribute("H5FlightApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("H5FlightApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

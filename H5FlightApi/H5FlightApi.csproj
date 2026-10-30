@@ -21,7 +21,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Trip\Requests\CreateTrip\" />
+      <Folder Include="Features\SightSeeing\" />
+      <Folder Include="Features\Users\" />
     </ItemGroup>
 
 </Project>

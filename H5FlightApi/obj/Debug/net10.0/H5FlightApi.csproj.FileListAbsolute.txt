@@ -204,3 +204,4 @@
 /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/bin/Debug/net10.0/Swashbuckle.AspNetCore.Swagger.dll
 /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/bin/Debug/net10.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/bin/Debug/net10.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/nick/RiderProjects/H5FlightApi/H5FlightApi/obj/Debug/net10.0/H5FlightApi.sourcelink.json

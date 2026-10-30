@@ -49,5 +49,40 @@ app.Run();
 // get my trips 
 // get trip details 
 // add flight to trip 
+// todo swagger     
+
+// TODO: Endpoints rest     
+
+// LOGIN  / password and username return token 
+// SIGNIN / create user 
+
+// get my trips 
+// get trip details 
+// add flight to trip 
 
 // get sight seeing spots for trip  
+
+
+
+
+
+
+
+// taster bynavn ind 
+
+// for muligherder, aklder mit api som jalder places a
+
+// get sight seeing spots for trip  
+
+
+
+
+
+
+
+// taster bynavn ind 
+
+// for muligherder, aklder mit api som jalder places a
+// sender liste tilbage, ( vi bruger en cashed liste ), 
+// hvis en ting bliver valgt laves der en kobi af den ting i vores db som en place hvis der ikke allerade er en. 
+// det place er så den som bliver en del af alle vores rlationships . 
