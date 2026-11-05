@@ -8,7 +8,7 @@ namespace H5FlightApi.Features.Trips.Requests.GetTrips;
 
 public record GetTripsRequest();
 
-public class GetTripsRequestHandler(CurrentUserService currentUserService, AppDbContext appDbContext)
+public class GetTripsRequestHandler(ICurrentUserService currentUserService, AppDbContext appDbContext)
 {
     public async Task<IResult> Handle(GetTripsRequest request, CancellationToken cancellationToken)
     {

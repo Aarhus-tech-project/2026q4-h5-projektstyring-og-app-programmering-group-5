@@ -8,7 +8,7 @@ namespace H5FlightApi.Features.Trips.Requests.CreateTrip;
 
 public record CreateTripRequest();
 
-public class CreateTripRequestHandler(CurrentUserService currentUserService, AppDbContext appDbContext)
+public class CreateTripRequestHandler(ICurrentUserService currentUserService, AppDbContext appDbContext)
 {
     public async Task<IResult> Handle(CreateTripRequest request, CancellationToken cancellationToken)
     {
