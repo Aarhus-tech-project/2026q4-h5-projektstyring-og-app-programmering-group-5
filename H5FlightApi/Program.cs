@@ -120,6 +120,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.Services.GetRequiredService<AppConfigService>().Validate();
+app.Services.GetRequiredService<IAppConfigService>().Validate();
 
 app.Run();
