@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 using Serilog;
+using Serilog.Events;
 using Wolverine;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -52,9 +53,16 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 });
 
 // todo extract to config 
-builder.Services.AddSerilog(config => config
-    .MinimumLevel.Error()
-    .WriteTo.File("logs/errors-.log", rollingInterval: RollingInterval.Day));
+builder.Services.AddSerilog(config =>
+    config
+        .MinimumLevel.Information()
+        .WriteTo.Console()
+        .WriteTo.File(
+            "logs/errors-.log",
+            restrictedToMinimumLevel: LogEventLevel.Error,
+            rollingInterval: RollingInterval.Day
+        )
+);
 
 builder.Services.AddProblemDetails();
 
