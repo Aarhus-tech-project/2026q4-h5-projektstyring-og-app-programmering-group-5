@@ -7,7 +7,7 @@ namespace H5FlightApi.Features.SightSeeing.Requests.GetPlacesForCity;
 
 public record GetPlacesForCityRequest(string City, string Country);
 
-public class GetPlacesForCityRequestHandler(GeoapifyHttpClient geoapifyHttpClient, IValidator<GetPlacesForCityRequest> validator)
+public class GetPlacesForCityRequestHandler(IGeoapifyHttpClient geoapifyHttpClient, IValidator<GetPlacesForCityRequest> validator)
 {
     public async Task<IResult> Handle(GetPlacesForCityRequest request, CancellationToken cancellationToken)
     {

@@ -1,4 +1,5 @@
 using H5FlightApi.HttpClients.Geoapify.Responses;
+using H5FlightApi.Services.AppConfigService;
 
 namespace H5FlightApi.HttpClients.Geoapify.GeoapifyHttpClient;
 
@@ -9,10 +10,10 @@ public class GeoapifyHttpClient : IGeoapifyHttpClient
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
 
-    public GeoapifyHttpClient(HttpClient httpClient)
+    public GeoapifyHttpClient(HttpClient httpClient, IAppConfigService appConfigService)
     {
         _httpClient = httpClient;
-        _apiKey = "secret"; // TODO hide in config. 
+        _apiKey = appConfigService.GeoapifyHttpClientApiKey;
     }
 
     public async Task<LocationResponse?> GetCityInfo(string city, string country)

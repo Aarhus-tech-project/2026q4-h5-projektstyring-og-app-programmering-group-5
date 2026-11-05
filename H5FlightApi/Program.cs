@@ -4,6 +4,7 @@ using H5FlightApi.HttpClients.Geoapify;
 using H5FlightApi.HttpClients.Geoapify.GeoapifyHttpClient;
 using H5FlightApi.Persistence;
 using H5FlightApi.Services;
+using H5FlightApi.Services.AppConfigService;
 using H5FlightApi.Services.CurrentUserService;
 using JasperFx.CodeGeneration.Model;
 using Microsoft.AspNetCore.Authentication.BearerToken;
@@ -59,6 +60,8 @@ builder.Services.AddProblemDetails();
 
 builder.Services.AddHttpClient();
 
+builder.Services.AddSingleton<IAppConfigService, AppConfigService>();
+
 // Use add http client instead of serivce? research 
 builder.Services.AddTransient<IGeoapifyHttpClient, GeoapifyHttpClient>();
 
@@ -108,5 +111,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.Services.GetRequiredService<AppConfigService>().Validate();
 
 app.Run();
