@@ -25,6 +25,3 @@ public class GetTripsRequestHandler(ICurrentUserService currentUserService, AppD
         return Results.Ok(tripsToReturn);
     }
 }
-
-
-// todo error handling global? 

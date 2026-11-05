@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("230e9cfa-0c3d-4de8-8eae-898fbde4a26a")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("H5FlightApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+663efecac0b3d89392a724b52c54bc27cae7c364")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4e029da628a021fa3ab567c702ac61fc7b0b4f0a")]
 [assembly: System.Reflection.AssemblyProductAttribute("H5FlightApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("H5FlightApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

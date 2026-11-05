@@ -5,7 +5,7 @@ namespace H5FlightApi.Persistence.Entities;
 
 public class Place
 {
-    public Guid DatabasePlaceId { get; set; } // todo find id navne løsning her 
+    public Guid DatabasePlaceId { get; set; }
     public string PlaceId { get; set; }
     public string? Name { get; set; }
     public string City { get; set; } = string.Empty;

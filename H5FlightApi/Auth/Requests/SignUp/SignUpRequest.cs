@@ -19,9 +19,10 @@ public class SignUpRequestHandler(AppDbContext appDbContext, IValidator<SignUpRe
             return Results.BadRequest(isValid.Errors);
         }
 
-        // TODO En factory giver god mening her da dder er logik releteret til creation af bruger. Kombiner med smartere løsning tikl enforceent af unik username. 
-        // fx en custom exception der kan kastes af ef core. men for nu lavver jeg et simplet user check. Skalere mega lort men det kan skiftes ud senere
 
+        // Would make sence to use a combination of a factory fro creating the user as logic is required/related to the creaton. 
+        // Make some database rule that makes username unique, and throw custom error if its not, catch the error and return response. 
+        // current solution scales terrrible but works fine for now. 
         var users = await appDbContext.Users.ToListAsync();
 
         foreach (var user in users)
@@ -37,8 +38,6 @@ public class SignUpRequestHandler(AppDbContext appDbContext, IValidator<SignUpRe
             UserName = request.Username,
             Password = "password"
         };
-
-        // todo logging 
 
         var passwordHash = new PasswordHasher<User>().HashPassword(newUser, request.Password);
 

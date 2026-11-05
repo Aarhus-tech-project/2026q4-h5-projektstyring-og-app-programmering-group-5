@@ -27,6 +27,7 @@ public class TripConfiguration : IEntityTypeConfiguration<Trip>
         entity.HasOne(t => t.User).WithMany(u => u.Trips).HasForeignKey(t => t.UserId);
 
         // todo fatter seriøst ikke forskellen på principleke og foien key i et til et forhold 
+        // todo spørg kenneth.  
         entity.HasOne(t => t.Flight)
             .WithOne(f => f.Trip)
             .HasForeignKey<Trip>(t => t.FlightId)

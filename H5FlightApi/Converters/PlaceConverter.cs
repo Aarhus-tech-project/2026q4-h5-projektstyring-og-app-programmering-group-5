@@ -11,8 +11,6 @@ public static class PlaceConverter
 
         return collection.Features.Select(feature => new Place
         {
-            // todo dont do this manually? 
-            // DatabasePlaceId = Guid.NewGuid(),
             PlaceId = feature.Properties.PlaceId,
             Name = feature.Properties.Name,
             City = feature.Properties.City,

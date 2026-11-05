@@ -1,9 +1,7 @@
 using System.Text.Json.Serialization;
 using FluentValidation;
-using H5FlightApi.HttpClients.Geoapify;
 using H5FlightApi.HttpClients.Geoapify.GeoapifyHttpClient;
 using H5FlightApi.Persistence;
-using H5FlightApi.Services;
 using H5FlightApi.Services.AppConfigService;
 using H5FlightApi.Services.CurrentUserService;
 using JasperFx.CodeGeneration.Model;
@@ -81,7 +79,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.UseWolverine(opts =>
 {
     opts.Durability.Mode = DurabilityMode.MediatorOnly;
-    opts.UseRuntimeCompilation(); // todo research 
+    opts.UseRuntimeCompilation();
 
     // opts.CodeGeneration.AlwaysUseServiceLocationFor<GeoapifyHttpClient>();
     // opts.CodeGeneration.AlwaysUseServiceLocationFor<AppDbContext>();
@@ -89,7 +87,6 @@ builder.UseWolverine(opts =>
     opts.ServiceLocationPolicy = ServiceLocationPolicy.AlwaysAllowed;
 });
 
-// todo required? 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
@@ -105,8 +102,6 @@ app.UseExceptionHandler();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-// app.UseMiddleware<CurrentUserMiddleware>();
 
 app.MapControllers();
 

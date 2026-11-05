@@ -9,7 +9,7 @@ namespace H5FlightApi.Features.SightSeeing;
 // [Authorize]
 [ApiController]
 [Route("[controller]")]
-public class SightSeeingController(IMessageBus mediator) : ControllerBase // TODO hvad gør det? 
+public class SightSeeingController(IMessageBus mediator) : ControllerBase
 {
     // TODO: Spørg kenneth hvad han sys om get requests som er posts fordi body, kan også lave query params og lave en request d fra det som jeg skan skyde afsted.
     // todo skal lige fine en conventi der gir menign at følge. 
