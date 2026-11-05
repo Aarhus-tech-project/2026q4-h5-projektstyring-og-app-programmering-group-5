@@ -1,5 +1,5 @@
 using FluentValidation;
-using H5FlightApi.Features.SightSeeing.Requests.SelectTrip;
+using H5FlightApi.Converters;
 using H5FlightApi.HttpClients.Geoapify.GeoapifyHttpClient;
 using H5FlightApi.HttpClients.Geoapify.Responses;
 
@@ -11,7 +11,7 @@ public class GetPlacesForCityRequestHandler(IGeoapifyHttpClient geoapifyHttpClie
 {
     public async Task<IResult> Handle(GetPlacesForCityRequest request, CancellationToken cancellationToken)
     {
-        var isValid = await validator.ValidateAsync(request);
+        var isValid = await validator.ValidateAsync(request, cancellationToken);
 
         if (!isValid.IsValid)
         {
@@ -48,4 +48,3 @@ public class GetPlacesForCityRequestHandler(IGeoapifyHttpClient geoapifyHttpClie
 }
 
 // todo kunne lave dtoer til responses 
-// todo ryd op i rogram fil. 
