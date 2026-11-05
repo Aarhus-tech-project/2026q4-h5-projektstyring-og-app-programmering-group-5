@@ -1,0 +1,32 @@
+# .NET build output and caches
+[Bb]in/
+[Oo]bj/
+[Aa]rtifacts/
+[Pp]ublish/
+out/
+
+# IDE files
+.idea/
+.vs/
+_ReSharper*/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+
+# Tests and coverage
+[Tt]est[Rr]esults/
+coverage/
+*.coverage
+*.coveragexml
+BenchmarkDotNet.Artifacts/
+
+# NuGet downloads and generated packages
+[Pp]ackages/
+*.nupkg
+*.snupkg
+
+# OS files
+.DS_Store
+Thumbs.db
