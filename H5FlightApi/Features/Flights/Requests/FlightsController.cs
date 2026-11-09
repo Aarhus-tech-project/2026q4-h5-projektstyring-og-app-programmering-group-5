@@ -22,8 +22,8 @@ public class FlightsController(IMessageBus mediator) : ControllerBase
     public async Task<IResult> GetFlights([FromQuery] List<string> departureAirports, [FromQuery] List<string> arrivalAirports,
         [FromQuery] DateTime outboundDate, [FromQuery] DateTime returnDate, [FromQuery] string? departureToken = null)
     {
-        outboundDate = DateTime.UtcNow;
-        returnDate = DateTime.UtcNow.AddDays(7);
+        // outboundDate = DateTime.UtcNow;
+        // returnDate = DateTime.UtcNow.AddDays(7);
 
         var request = new GetFlightsRequest(departureAirports, arrivalAirports, departureToken, outboundDate, returnDate);
         return await mediator.InvokeAsync<IResult>(request);
