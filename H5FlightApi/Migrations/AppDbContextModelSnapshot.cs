@@ -78,6 +78,10 @@ namespace H5FlightApi.Migrations
                     b.Property<Guid?>("FlightId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
