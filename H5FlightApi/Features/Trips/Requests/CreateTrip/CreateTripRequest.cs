@@ -1,3 +1,4 @@
+using FluentValidation;
 using H5FlightApi.Persistence;
 using H5FlightApi.Persistence.Entities;
 using H5FlightApi.Services;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace H5FlightApi.Features.Trips.Requests.CreateTrip;
 
-public record CreateTripRequest();
+public record CreateTripRequest(string Title);
 
 public class CreateTripRequestHandler(ICurrentUserService currentUserService, AppDbContext appDbContext)
 {
@@ -29,6 +30,7 @@ public class CreateTripRequestHandler(ICurrentUserService currentUserService, Ap
         var newTrip = new Trip
         {
             UserId = userIdClaim.Value,
+            Title = request.Title
         };
 
         user.Trips.Add(newTrip);
@@ -36,5 +38,13 @@ public class CreateTripRequestHandler(ICurrentUserService currentUserService, Ap
         await appDbContext.SaveChangesAsync(cancellationToken);
 
         return Results.Ok(newTrip);
+    }
+
+    public class CreateTripRequestValidator : AbstractValidator<CreateTripRequest>
+    {
+        public CreateTripRequestValidator()
+        {
+            RuleFor(x => x.Title).NotEmpty();
+        }
     }
 }

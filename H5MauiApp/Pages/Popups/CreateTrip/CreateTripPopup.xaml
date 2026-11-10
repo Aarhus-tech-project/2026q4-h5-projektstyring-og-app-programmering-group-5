@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:H5MauiApp.Pages.Popups.CreateTrip"
+    x:Class="H5MauiApp.Pages.Popups.CreateTrip.CreateTripPopup"
+    x:DataType="local:CreateTripPopupViewModel">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+        <Button
+            Text="Close"
+            Command="{Binding CloseCommand}"
+            CommandParameter="{x:Static local:CreateTripDialogResults.ClosedByUser}" />
+        <!-- -->
+        <Button
+            Text="Create"
+            Command="{Binding CreateTripCommand}"
+            CommandParameter="{x:Static local:CreateTripDialogResults.Success}" />
+
+        <Entry
+            Placeholder="title"
+            Text="{Binding TitleInput, Mode=TwoWay}" />
+
+    </VerticalStackLayout>
+</ContentView>
