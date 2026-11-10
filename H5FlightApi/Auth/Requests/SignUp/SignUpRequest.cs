@@ -8,11 +8,11 @@ namespace H5FlightApi.Auth.Requests.SignUp;
 
 public record SignUpRequest(string Username, string Password);
 
-public class SignUpRequestHandler(AppDbContext appDbContext, IValidator<SignUpRequest> validator, CancellationToken cancellationToken)
+public class SignUpRequestHandler(AppDbContext appDbContext, IValidator<SignUpRequest> validator)
 {
     public async Task<IResult> Handle(SignUpRequest request)
     {
-        var isValid = await validator.ValidateAsync(request, cancellationToken);
+        var isValid = await validator.ValidateAsync(request);
 
         if (!isValid.IsValid)
         {
