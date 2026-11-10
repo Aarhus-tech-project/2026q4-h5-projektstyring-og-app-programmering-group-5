@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Maui;
 using H5MauiApp.Auth;
+using H5MauiApp.ErrorHandling;
 using H5MauiApp.Pages.LoginPage;
 using H5MauiApp.Pages.MyTripsPage;
 using H5MauiApp.Pages.Popups.CreateTrip;
 using H5MauiApp.Pages.SignupPage;
+using Serilog;
 using H5MauiApp.Pages.TripDetails;
 using Microsoft.Extensions.Logging;
 
@@ -22,6 +24,10 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
+
+        builder.Logging.AddDebug();
+
+        builder.Services.AddSingleton<IErrorHandler, AlertErrorHandler>();
 
         builder.Services.AddSingleton<TokenStore>();
         builder.Services.AddTransient<AuthHandler>();
@@ -56,3 +62,16 @@ public static class MauiProgram
         return builder.Build();
     }
 }
+
+//
+// var app = builder.Build();
+// var log = app.Services.GetRequiredService<ILogger<App>>();
+//
+// AppDomain.CurrentDomain.UnhandledException += (_, e) =>
+//     log.LogCritical(e.ExceptionObject as Exception, "Fatal");
+//
+// TaskScheduler.UnobservedTaskException += (_, e) =>
+// {
+//     log.LogError(e.Exception, "Unobserved task");
+//     e.SetObserved();
+// };

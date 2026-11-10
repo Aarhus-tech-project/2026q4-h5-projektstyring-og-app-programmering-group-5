@@ -4,17 +4,18 @@ using CommunityToolkit.Maui.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using H5MauiApp.ApiModels;
+using H5MauiApp.ErrorHandling;
 using H5MauiApp.Pages.Popups.CreateTrip;
 using CreateTripPopup = H5MauiApp.Pages.Popups.CreateTrip.CreateTripPopup;
 
 namespace H5MauiApp.Pages.MyTripsPage;
 
-public partial class MyTripsViewModel(HttpClient httpClient, CreateTripPopup createTripPopup) : ObservableObject
+public partial class MyTripsViewModel(HttpClient httpClient, CreateTripPopup createTripPopup, IErrorHandler errorHandler) : ObservableObject
 {
     public ObservableCollection<Trip> Trips { get; } = new();
 
     [RelayCommand]
-    async Task ShowPopup()
+    public async Task ShowPopup() => await errorHandler.Guard(async () =>
     {
         var result = await Shell.Current.ShowPopupAsync<CreateTripDialogResults>(createTripPopup);
 
@@ -35,9 +36,9 @@ public partial class MyTripsViewModel(HttpClient httpClient, CreateTripPopup cre
                 // todo Handle the error.
                 break;
         }
-    }
+    });
 
-    public async Task GetTripsAsync()
+    public async Task GetTripsAsync() => await errorHandler.Guard(async () =>
     {
         var trips = await httpClient.GetFromJsonAsync<List<Trip>>("/Trip");
 
@@ -48,5 +49,5 @@ public partial class MyTripsViewModel(HttpClient httpClient, CreateTripPopup cre
         {
             Trips.Add(trip);
         }
-    }
+    });
 }

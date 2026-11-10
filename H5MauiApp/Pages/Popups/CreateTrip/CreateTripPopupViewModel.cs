@@ -1,3 +1,5 @@
+using H5MauiApp.ErrorHandling;
+
 namespace H5MauiApp.Pages.Popups.CreateTrip;
 
 using System.Net.Http.Json;
@@ -5,12 +7,12 @@ using CommunityToolkit.Maui.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-public partial class CreateTripPopupViewModel(HttpClient httpClient) : ObservableObject
+public partial class CreateTripPopupViewModel(HttpClient httpClient, IErrorHandler errorHandler) : ObservableObject
 {
     [ObservableProperty] private string titleInput;
 
     [RelayCommand]
-    public async Task CreateTrip()
+    public async Task CreateTrip() => await errorHandler.Guard(async () =>
     {
         var response = await httpClient.PostAsJsonAsync("/Trip", new CreateTripRequest(TitleInput));
 
@@ -23,7 +25,7 @@ public partial class CreateTripPopupViewModel(HttpClient httpClient) : Observabl
         }
 
         await Close(CreateTripDialogResults.Success);
-    }
+    });
 
     [RelayCommand]
     Task Close(CreateTripDialogResults result)
