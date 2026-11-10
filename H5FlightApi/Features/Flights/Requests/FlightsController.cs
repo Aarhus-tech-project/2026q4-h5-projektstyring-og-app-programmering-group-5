@@ -1,6 +1,7 @@
 using H5FlightApi.Features.Flights.Requests.GetAirports;
 using H5FlightApi.Features.Flights.Requests.GetFlights;
 using H5FlightApi.Features.Flights.Requests.SelectFlight;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Wolverine;
 
@@ -8,8 +9,8 @@ namespace H5FlightApi.Features.Flights.Requests;
 
 [ApiController]
 [Route("[controller]")]
-// [Authorize]
-public class FlightsController(IMessageBus mediator) : ControllerBase   
+[Authorize]
+public class FlightsController(IMessageBus mediator) : ControllerBase
 {
     [HttpGet("/airports")]
     public async Task<IResult> GetAirports([FromQuery] string departureCountry, [FromQuery] string arrivalCountry)

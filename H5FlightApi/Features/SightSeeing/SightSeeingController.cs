@@ -6,7 +6,7 @@ using Wolverine;
 
 namespace H5FlightApi.Features.SightSeeing;
 
-// [Authorize]
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class SightSeeingController(IMessageBus mediator) : ControllerBase
