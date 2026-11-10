@@ -43,7 +43,7 @@ public class LoginRequestHandler(AppDbContext appDbContext, IValidator<LoginRequ
         public LoginRequestHandlerValidator()
         {
             RuleFor(x => x.Username).NotEmpty();
-            RuleFor(x => x.Password).MinimumLength(8).MaximumLength(50).NotEmpty();
+            RuleFor(x => x.Password).NotEmpty();
         }
     }
 }
