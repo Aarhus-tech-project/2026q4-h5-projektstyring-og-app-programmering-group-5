@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:H5MauiApp.Pages.LoginPage"
+             x:Class="H5MauiApp.Pages.LoginPage.LoginView"
+             x:DataType="local:LoginViewModel">
+
+
+    <VerticalStackLayout Padding="20" Spacing="12">
+        <Entry
+            Placeholder="Username"
+            Text="{Binding UsernameInput, Mode=TwoWay}" />
+
+        <Entry
+            Placeholder="Password"
+            IsPassword="True"
+            Text="{Binding PasswordInput, Mode=TwoWay}" />
+
+        <Button Text="Login" Command="{Binding LoginCommand}"></Button>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,14 +1,21 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <Shell
     x:Class="H5MauiApp.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:H5MauiApp"
+    xmlns:signupPage="clr-namespace:H5MauiApp.Pages.SignupPage"
+    xmlns:myTripsPage="clr-namespace:H5MauiApp.Pages.MyTripsPage"
+    Shell.FlyoutBehavior="Disabled"
     Title="H5MauiApp">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Sign up"
+        ContentTemplate="{DataTemplate signupPage:SignupView}"
+        Route="signup" />
+
+    <ShellContent
+        Route="MyTrips"
+        ContentTemplate="{DataTemplate myTripsPage:MyTripsView}" />
 
 </Shell>
