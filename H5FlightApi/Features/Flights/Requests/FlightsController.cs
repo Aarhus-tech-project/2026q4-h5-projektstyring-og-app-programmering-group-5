@@ -9,7 +9,7 @@ namespace H5FlightApi.Features.Flights.Requests;
 [ApiController]
 [Route("[controller]")]
 // [Authorize]
-public class FlightsController(IMessageBus mediator) : ControllerBase
+public class FlightsController(IMessageBus mediator) : ControllerBase   
 {
     [HttpGet("/airports")]
     public async Task<IResult> GetAirports([FromQuery] string departureCountry, [FromQuery] string arrivalCountry)
