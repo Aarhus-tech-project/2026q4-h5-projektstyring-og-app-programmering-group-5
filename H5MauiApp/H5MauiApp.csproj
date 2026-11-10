@@ -66,8 +66,24 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Maui" Version="16.0.0"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2"/>
+        <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.14"/>
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <MauiXaml Update="Pages\Popups\CreateTrip\CreateTripPopup.xaml">
+            <SubType>Designer</SubType>
+        </MauiXaml>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Pages\Popups\CreateTrip\CreateTripPopup.xaml.cs">
+            <DependentUpon>CreateTripPopup.xaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
 </Project>
