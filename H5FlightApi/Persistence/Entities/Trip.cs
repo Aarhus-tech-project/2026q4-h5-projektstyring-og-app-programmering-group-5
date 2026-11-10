@@ -14,6 +14,9 @@ public class Trip
     public Flight? Flight { get; set; }
 
     public List<TripEvent> TripEvents { get; set; } = new List<TripEvent>();
+
+
+    public string Title { get; set; } = string.Empty;
 }
 
 public class TripConfiguration : IEntityTypeConfiguration<Trip>
