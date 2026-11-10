@@ -7,7 +7,7 @@ using Wolverine;
 
 namespace H5FlightApi.Features.Trips;
 
-// [Authorize]
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class TripController(IMessageBus mediator) : ControllerBase
@@ -27,9 +27,8 @@ public class TripController(IMessageBus mediator) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IResult> CreateTrip()
+    public async Task<IResult> CreateTrip([FromBody] CreateTripRequest request)
     {
-        var request = new CreateTripRequest();
         return await mediator.InvokeAsync<IResult>(request);
     }
 }
