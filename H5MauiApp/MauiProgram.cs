@@ -7,6 +7,7 @@ using H5MauiApp.Pages.Popups.CreateTrip;
 using H5MauiApp.Pages.SignupPage;
 using Serilog;
 using H5MauiApp.Pages.TripDetails;
+using H5MauiApp.Services.AlertService;
 using Microsoft.Extensions.Logging;
 
 namespace H5MauiApp;
@@ -56,6 +57,8 @@ public static class MauiProgram
 
         builder.Services.AddTransient<CreateTripPopupViewModel>();
         builder.Services.AddTransient<CreateTripPopup>();
+
+        builder.Services.AddTransient<IAlertService, AlertService>();
 
 #if DEBUG
         builder.Logging.AddDebug();
