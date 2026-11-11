@@ -23,7 +23,7 @@ public class AlertService : IAlertService
             message = string.Join(Environment.NewLine, errors.Values.SelectMany(m => m));
         }
 
-        await Shell.Current.DisplayAlertAsync(title.ToString(), message, "Close");
+        await Shell.Current.DisplayAlertAsync(title.ToString(), "ReasonParse: " + response.ReasonPhrase + "Message: " + message, "Close");
     }
 
     private static bool TryParseValidationErrors(string json, out Dictionary<string, string[]> errors)

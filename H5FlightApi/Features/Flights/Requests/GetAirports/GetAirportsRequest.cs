@@ -5,30 +5,42 @@ namespace H5FlightApi.Features.Flights.Requests.GetAirports;
 
 public record GetAirportsRequest(string DepartureCountry, string ArrivalCountry);
 
+public record GetAirportsResponse(List<Airport> DepartureAirports, List<Airport> ArrivalAirports);
+
 public class GetAirportsRequestHandler()
 {
     public async Task<IResult> Handle(GetAirportsRequest request)
     {
         using var csv = CsvReader.FromFile("Data/airports_with_iata.csv");
 
+        // todo consider adding not found 
+
         var airports = csv.GetRecords<AirportCsvRow>()
-            .Where(r =>
-                r.iso_country == request.DepartureCountry ||
-                r.iso_country == request.ArrivalCountry
-            )
+            .Where(r => r.scheduled_service == "yes")
+            .Where(r => r.type == "large_airport")
+            .Where(r => !string.IsNullOrWhiteSpace(r.iata_code))
             .Select(r => new Airport
             {
                 Id = r.id,
                 Name = r.name,
                 IsoCountry = r.iso_country,
                 Municipality = r.municipality,
-                IataCode = r.iata_code,
+                IataCode = r.iata_code.Trim().ToUpperInvariant(),
                 Type = r.type,
-                HasScheduledService = r.scheduled_service == "yes"
+                HasScheduledService = true
             })
             .ToList();
 
-        return (Results.Ok(airports));
+        var departureAirports = airports
+            .Where(a => a.IsoCountry == request.DepartureCountry)
+            .ToList();
+
+        var arrivalAirports = airports
+            .Where(a => a.IsoCountry == request.ArrivalCountry)
+            .ToList();
+
+        // todo retun 2 lists of airpots lol 
+        return (Results.Ok(new GetAirportsResponse(departureAirports, arrivalAirports)));
     }
 }
 

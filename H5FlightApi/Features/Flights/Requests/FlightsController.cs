@@ -19,14 +19,9 @@ public class FlightsController(IMessageBus mediator) : ControllerBase
         return await mediator.InvokeAsync<IResult>(request);
     }
 
-    [HttpGet("/flights")]
-    public async Task<IResult> GetFlights([FromQuery] List<string> departureAirports, [FromQuery] List<string> arrivalAirports,
-        [FromQuery] DateTime outboundDate, [FromQuery] DateTime returnDate, [FromQuery] string? departureToken = null)
+    [HttpPost("/flights")]
+    public async Task<IResult> GetFlights([FromBody] GetFlightsRequest request)
     {
-        // outboundDate = DateTime.UtcNow;
-        // returnDate = DateTime.UtcNow.AddDays(7);
-
-        var request = new GetFlightsRequest(departureAirports, arrivalAirports, departureToken, outboundDate, returnDate);
         return await mediator.InvokeAsync<IResult>(request);
     }
 

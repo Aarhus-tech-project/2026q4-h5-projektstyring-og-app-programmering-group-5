@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using H5MauiApp.Auth;
 using H5MauiApp.ErrorHandling;
+using H5MauiApp.Pages.CreateFlightPage;
 using H5MauiApp.Pages.LoginPage;
 using H5MauiApp.Pages.MyTripsPage;
 using H5MauiApp.Pages.Popups.CreateTrip;
@@ -59,6 +60,9 @@ public static class MauiProgram
         builder.Services.AddTransient<CreateTripPopup>();
 
         builder.Services.AddTransient<IAlertService, AlertService>();
+
+        builder.Services.AddTransient<CreateFlightViewModel>();
+        builder.Services.AddTransient<CreateFlightView>();
 
 #if DEBUG
         builder.Logging.AddDebug();

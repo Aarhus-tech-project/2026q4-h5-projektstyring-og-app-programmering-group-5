@@ -1,0 +1,115 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:H5MauiApp.Pages.CreateFlightPage"
+    x:Class="H5MauiApp.Pages.CreateFlightPage.CreateFlightView"
+    x:DataType="local:CreateFlightViewModel"
+    Shell.NavBarIsVisible="False"
+    Title="Create flight">
+
+    <VerticalStackLayout Spacing="8">
+        <VerticalStackLayout Padding="16" Spacing="8">
+            <Label
+                FontAttributes="Bold"
+                FontSize="18"
+                Text="Departure country" />
+
+            <Picker
+                Title="Select departure country"
+                ItemsSource="{Binding Countries}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding DepartureCountry, Mode=TwoWay}" />
+
+            <Label
+                Margin="0,12,0,0"
+                FontAttributes="Bold"
+                FontSize="18"
+                Text="Destination country" />
+
+            <Picker
+                Title="Select destination country"
+                ItemsSource="{Binding Countries}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding DestinationCountry, Mode=TwoWay}" />
+
+            <Label
+                Margin="0,12,0,0"
+                FontAttributes="Bold"
+                FontSize="18"
+                Text="Departure date" />
+
+            <DatePicker
+                Date="{Binding DepartureDate, Mode=TwoWay}"
+                Format="d" />
+
+            <Label
+                Margin="0,12,0,0"
+                FontAttributes="Bold"
+                FontSize="18"
+                Text="Return date" />
+
+            <DatePicker
+                Date="{Binding ReturnDate, Mode=TwoWay}"
+                Format="d" />
+
+            <Button
+                Command="{Binding GetAirportsCommand}"
+                Text="Search flights" />
+        </VerticalStackLayout>
+
+        <CollectionView
+            HeightRequest="300"
+            ItemsSource="{Binding BestFlights}"
+            VerticalScrollBarVisibility="Always">
+
+            <CollectionView.EmptyView>
+                <Label
+                    Padding="16"
+                    Text="No flights found yet." />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="local:FlightOption">
+                    <Border
+                        Padding="12"
+                        Margin="16,6"
+                        Stroke="#CCCCCC"
+                        StrokeThickness="1">
+
+                        <VerticalStackLayout Spacing="4">
+                            <Label
+                                Text="{Binding FirstFlight.Airline}" />
+
+                            <Label
+                                Text="{Binding FirstFlight.FlightNumber}" />
+
+                            <Label
+                                Text="{Binding FirstFlight.DepartureAirport.Name,
+                                    StringFormat='From: {0}'}" />
+
+                            <Label
+                                Text="{Binding LastFlight.ArrivalAirport.Name,
+                                    StringFormat='To: {0}'}" />
+
+                            <Label
+                                Text="{Binding FirstFlight.DepartureAirport.Time,
+                                    StringFormat='Departure: {0}'}" />
+
+                            <Label
+                                Text="{Binding LastFlight.ArrivalAirport.Time,
+                                    StringFormat='Arrival: {0}'}" />
+
+                            <Label
+                                Text="{Binding TotalDuration,
+                                    StringFormat='Total duration: {0} min'}" />
+
+                            <Label
+                                Text="{Binding Price,
+                                    StringFormat='Price: {0} DKK'}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
