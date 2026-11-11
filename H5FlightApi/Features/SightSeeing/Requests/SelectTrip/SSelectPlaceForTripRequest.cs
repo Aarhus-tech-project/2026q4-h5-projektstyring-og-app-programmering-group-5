@@ -26,7 +26,7 @@ public class SelectPlaceForTripRequestHandler(AppDbContext appDbContext)
 
         if (isValid.IsValid is false)
         {
-            return Results.ValidationProblem(isValid.ToDictionary());
+            return Results.ValidationProblemOverride(isValid.ToDictionary());
         }
 
         var trip = await appDbContext.Trips.FirstOrDefaultAsync(t => t.Id == request.TripId, cancellationToken);

@@ -14,7 +14,7 @@ public class GetTripRequestHandler(AppDbContext appDbContext, IValidator<GetTrip
 
         if (isValid.IsValid is false)
         {
-            return Results.ValidationProblem(isValid.ToDictionary());
+            return Results.ValidationProblemOverride(isValid.ToDictionary());
         }
 
         var tripToFetch = await appDbContext.Trips

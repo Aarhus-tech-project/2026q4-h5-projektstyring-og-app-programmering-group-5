@@ -38,6 +38,18 @@ public partial class MyTripsViewModel(HttpClient httpClient, CreateTripPopup cre
         }
     });
 
+    // todo not sure if this gaurd can dobble catch erros inthing iside of guard usage in the new view 
+    [RelayCommand]
+    public async Task GoToDetailedTrip(Trip trip) => errorHandler.Guard(async () =>
+    {
+        var parameters = new ShellNavigationQueryParameters
+        {
+            ["tripId"] = trip.Id
+        };
+
+        await Shell.Current.GoToAsync(nameof(MyTripsView), parameters);
+    });
+
     public async Task GetTripsAsync() => await errorHandler.Guard(async () =>
     {
         var trips = await httpClient.GetFromJsonAsync<List<Trip>>("/Trip");

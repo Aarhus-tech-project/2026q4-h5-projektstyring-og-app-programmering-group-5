@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using CommunityToolkit.Maui.Core;
@@ -16,19 +17,19 @@ public class AlertService : IAlertService
         var message = await response.Content.ReadAsStringAsync();
         var title = AlertTitle.Error;
 
-        var validationResponse = JsonSerializer.Deserialize<ValidationErrorResponse>(message);
-
-        if (validationResponse?.Errors is { Count: > 0 } errors)
+        if (response.StatusCode == HttpStatusCode.BadRequest && TryParseValidationErrors(message, out var errors))
         {
             title = AlertTitle.ValidationError;
-
-            message = string.Join(
-                Environment.NewLine,
-                errors.Values.SelectMany(messages => messages)
-            );
+            message = string.Join(Environment.NewLine, errors.Values.SelectMany(m => m));
         }
 
         await Shell.Current.DisplayAlertAsync(title.ToString(), message, "Close");
+    }
+
+    private static bool TryParseValidationErrors(string json, out Dictionary<string, string[]> errors)
+    {
+        errors = JsonSerializer.Deserialize<ValidationErrorResponse>(json)?.Errors ?? [];
+        return errors.Count > 0;
     }
 }
 

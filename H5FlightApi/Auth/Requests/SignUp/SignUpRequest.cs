@@ -16,7 +16,7 @@ public class SignUpRequestHandler(AppDbContext appDbContext, IValidator<SignUpRe
 
         if (isValid.IsValid is false)
         {
-            return Results.ValidationProblem(isValid.ToDictionary());
+            return Results.ValidationProblemOverride(isValid.ToDictionary());
         }
 
         // Would make sence to use a combination of a factory fro creating the user as logic is required/related to the creaton. 

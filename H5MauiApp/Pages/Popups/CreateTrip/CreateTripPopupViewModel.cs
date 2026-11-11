@@ -34,4 +34,5 @@ public partial class CreateTripPopupViewModel(HttpClient httpClient, IErrorHandl
     }
 }
 
+// todo move 
 public record CreateTripRequest(string Title);

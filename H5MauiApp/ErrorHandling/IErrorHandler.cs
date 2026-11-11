@@ -11,8 +11,8 @@ public class AlertErrorHandler(ILogger<AlertErrorHandler> log) : IErrorHandler
 {
     public Task HandleAsync(Exception ex)
     {
-        log.LogError(ex, "Error");
-        return Shell.Current.DisplayAlertAsync("Error", ex.Message, "OK");
+        log.LogError(ex, "Unhandled exception");
+        return Shell.Current.DisplayAlertAsync("Unhandled exception", ex.Message, "Close");
     }
 }
 

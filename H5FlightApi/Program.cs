@@ -118,3 +118,21 @@ app.UseHttpsRedirection();
 app.Services.GetRequiredService<IAppConfigService>().Validate();
 
 app.Run();
+
+
+// todo move 
+
+public static class ResultsExtensions
+{
+    extension(Results)
+    {
+        public static IResult ValidationProblemOverride(IDictionary<string, string[]> errors) => Results.Json(
+            new HttpValidationProblemDetails(errors)
+            {
+                Status = StatusCodes.Status400BadRequest,
+            },
+            statusCode: StatusCodes.Status400BadRequest,
+            contentType: "application/problem+json"
+        );
+    }
+}

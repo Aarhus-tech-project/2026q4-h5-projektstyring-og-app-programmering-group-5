@@ -26,6 +26,13 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Trip">
                     <VerticalStackLayout Padding="12">
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding GoToDetailedTripCommand,
+                                Source={RelativeSource AncestorType=local:MyTripsViewModel}, x:DataType=local:MyTripsViewModel}"
+                                CommandParameter="{Binding .}" />
+                        </VerticalStackLayout.GestureRecognizers>
+
                         <Label
                             Text="{Binding Title}"
                             FontSize="18" />
