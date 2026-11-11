@@ -5,13 +5,14 @@ using H5MauiApp.Auth;
 using H5MauiApp.ErrorHandling;
 using H5MauiApp.Pages.MyTripsPage;
 using H5MauiApp.Pages.SignupPage;
+using H5MauiApp.Services.AlertService;
 
 namespace H5MauiApp.Pages.LoginPage;
 
-public partial class LoginViewModel(HttpClient httpClient, TokenStore tokenStore, IErrorHandler errorHandler) : ObservableObject
+public partial class LoginViewModel(HttpClient httpClient, TokenStore tokenStore, IErrorHandler errorHandler, IAlertService alertService)
+    : ObservableObject
 {
     [ObservableProperty] private string passwordInput = string.Empty;
-
     [ObservableProperty] private string usernameInput = string.Empty;
 
     [RelayCommand]
@@ -22,7 +23,7 @@ public partial class LoginViewModel(HttpClient httpClient, TokenStore tokenStore
 
         if (res.IsSuccessStatusCode is false)
         {
-            // todo show error
+            await alertService.ShowHttpErrorAlert(res);
             return;
         }
 
@@ -30,15 +31,15 @@ public partial class LoginViewModel(HttpClient httpClient, TokenStore tokenStore
 
         if (token is null)
         {
-            // todo show error 
+            await alertService.ShowAlert(AlertTitle.Error, "Could not read token from response");
             return;
         }
 
         await tokenStore.SaveAsync(token);
 
         await Shell.Current.GoToAsync("//MyTrips");
-        // await Shell.Current.GoToAsync(nameof(MyTripsView));
     });
 }
 
+// todo move 
 public record LoginRequest(string Username, string Password);

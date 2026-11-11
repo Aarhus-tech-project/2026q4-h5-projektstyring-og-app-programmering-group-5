@@ -12,6 +12,11 @@ public class GetTripRequestHandler(AppDbContext appDbContext, IValidator<GetTrip
     {
         var isValid = await validator.ValidateAsync(request, cancellationToken);
 
+        if (isValid.IsValid is false)
+        {
+            return Results.ValidationProblem(isValid.ToDictionary());
+        }
+
         var tripToFetch = await appDbContext.Trips
             .Include(t => t.Flight)
             .Include(t => t.TripEvents).ThenInclude(te => te.Place)

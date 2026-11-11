@@ -7,7 +7,6 @@ public interface IErrorHandler
     Task HandleAsync(Exception ex);
 }
 
-// todo also need logger config like serilog 
 public class AlertErrorHandler(ILogger<AlertErrorHandler> log) : IErrorHandler
 {
     public Task HandleAsync(Exception ex)

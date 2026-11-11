@@ -42,6 +42,8 @@ public partial class MyTripsViewModel(HttpClient httpClient, CreateTripPopup cre
     {
         var trips = await httpClient.GetFromJsonAsync<List<Trip>>("/Trip");
 
+        // todo make sure trips arrives saftely? 
+
         Trips.Clear();
 
         // todo annoying to use observable collection, keeps UI responsice and bring UI updates but it 2x itterates my array 

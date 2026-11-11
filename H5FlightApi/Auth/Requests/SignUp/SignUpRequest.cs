@@ -14,11 +14,10 @@ public class SignUpRequestHandler(AppDbContext appDbContext, IValidator<SignUpRe
     {
         var isValid = await validator.ValidateAsync(request);
 
-        if (!isValid.IsValid)
+        if (isValid.IsValid is false)
         {
-            return Results.BadRequest(isValid.Errors);
+            return Results.ValidationProblem(isValid.ToDictionary());
         }
-
 
         // Would make sence to use a combination of a factory fro creating the user as logic is required/related to the creaton. 
         // Make some database rule that makes username unique, and throw custom error if its not, catch the error and return response. 

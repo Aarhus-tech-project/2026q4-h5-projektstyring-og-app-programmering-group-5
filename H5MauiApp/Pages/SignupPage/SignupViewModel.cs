@@ -1,15 +1,18 @@
 using System.Diagnostics;
 using System.Net.Http.Json;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using H5MauiApp.Auth;
 using H5MauiApp.ErrorHandling;
 using H5MauiApp.Pages.LoginPage;
 using H5MauiApp.Pages.MyTripsPage;
+using H5MauiApp.Services.AlertService;
 
 namespace H5MauiApp.Pages.SignupPage;
 
-public partial class SignupViewModel(HttpClient httpClient, TokenStore tokenStore, IErrorHandler errorHandler) : ObservableObject
+public partial class SignupViewModel(HttpClient httpClient, TokenStore tokenStore, IErrorHandler errorHandler, IAlertService alertService)
+    : ObservableObject
 {
     [ObservableProperty] private string usernameInput = string.Empty;
     [ObservableProperty] private string passwordInput = string.Empty;
@@ -22,7 +25,7 @@ public partial class SignupViewModel(HttpClient httpClient, TokenStore tokenStor
 
         if (res.IsSuccessStatusCode is false)
         {
-            // todo show error
+            await alertService.ShowHttpErrorAlert(res);
             return;
         }
 
@@ -30,7 +33,7 @@ public partial class SignupViewModel(HttpClient httpClient, TokenStore tokenStor
 
         if (token is null)
         {
-            // todo show error 
+            await alertService.ShowAlert(AlertTitle.Error, "Could not read token from response");
             return;
         }
 
@@ -48,4 +51,5 @@ public partial class SignupViewModel(HttpClient httpClient, TokenStore tokenStor
     public async Task GoToLoginView() => await Shell.Current.GoToAsync(nameof(LoginView));
 }
 
+// todo move 
 public record SignUpRequest(string Username, string Password);

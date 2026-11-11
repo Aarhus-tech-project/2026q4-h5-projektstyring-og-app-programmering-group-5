@@ -25,6 +25,8 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
+        // todo is busy activitit y indicator 
+
         builder.Logging.AddDebug();
 
         builder.Services.AddSingleton<IErrorHandler, AlertErrorHandler>();

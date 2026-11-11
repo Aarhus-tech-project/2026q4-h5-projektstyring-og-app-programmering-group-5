@@ -13,9 +13,9 @@ public class GetPlacesForCityRequestHandler(IGeoapifyHttpClient geoapifyHttpClie
     {
         var isValid = await validator.ValidateAsync(request, cancellationToken);
 
-        if (!isValid.IsValid)
+        if (isValid.IsValid is false)
         {
-            return Results.BadRequest(isValid);
+            return Results.ValidationProblem(isValid.ToDictionary());
         }
 
         LocationResponse? cityInfo = await geoapifyHttpClient.GetCityInfo(request.City, request.Country);

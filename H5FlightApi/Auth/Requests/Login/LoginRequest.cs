@@ -14,9 +14,9 @@ public class LoginRequestHandler(AppDbContext appDbContext, IValidator<LoginRequ
     {
         var isValid = await validator.ValidateAsync(request, cancellationToken);
 
-        if (!isValid.IsValid)
+        if (isValid.IsValid is false)
         {
-            return Results.BadRequest(isValid.Errors);
+            return Results.ValidationProblem(isValid.ToDictionary());
         }
 
         var user = await appDbContext.Users.FirstOrDefaultAsync(u => u.UserName == request.Username, cancellationToken);
