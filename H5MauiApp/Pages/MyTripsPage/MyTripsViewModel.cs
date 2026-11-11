@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using H5MauiApp.ApiModels;
 using H5MauiApp.ErrorHandling;
 using H5MauiApp.Pages.Popups.CreateTrip;
+using H5MauiApp.Pages.TripDetails;
 using CreateTripPopup = H5MauiApp.Pages.Popups.CreateTrip.CreateTripPopup;
 
 namespace H5MauiApp.Pages.MyTripsPage;
@@ -28,13 +29,9 @@ public partial class MyTripsViewModel(HttpClient httpClient, CreateTripPopup cre
         // gaurd the on navigated too so its once pr lifecycle of object, allow manual overwride if you want more usage.
         switch (result.Result)
         {
-            case CreateTripDialogResults.Success:
-                // await GetTripsAsync();
-                break;
-
-            case CreateTripDialogResults.Error:
-                // todo Handle the error.
-                break;
+            case CreateTripDialogResults.Success: break;
+            case CreateTripDialogResults.Error: break;
+            // todo Handle the error. GØR DET INDE I POPUPPEN 
         }
     });
 
@@ -47,7 +44,7 @@ public partial class MyTripsViewModel(HttpClient httpClient, CreateTripPopup cre
             ["tripId"] = trip.Id
         };
 
-        await Shell.Current.GoToAsync(nameof(MyTripsView), parameters);
+        await Shell.Current.GoToAsync(nameof(TripDetailsView), parameters);
     });
 
     public async Task GetTripsAsync() => await errorHandler.Guard(async () =>

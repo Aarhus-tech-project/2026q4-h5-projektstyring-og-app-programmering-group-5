@@ -9,12 +9,13 @@ namespace H5MauiApp.Pages.TripDetails;
 [QueryProperty(nameof(TripId), "tripId")]
 public partial class TripDetailsViewModel(IErrorHandler errorHandler, HttpClient httpClient, IAlertService alertService) : ObservableObject
 {
-    [ObservableProperty] private string tripId;
+    [ObservableProperty] private Guid tripId;
     [ObservableProperty] private Trip trip;
 
     public async Task GetTripDetailsAsync() => await errorHandler.Guard(async () =>
     {
-        var result = await httpClient.GetAsync($"/Trip/{tripId}");
+        // todo why is this 2x catching 
+        var result = await httpClient.GetAsync($"/{tripId}");
 
         if (result.IsSuccessStatusCode is false)
         {

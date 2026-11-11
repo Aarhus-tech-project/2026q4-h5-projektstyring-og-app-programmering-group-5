@@ -20,6 +20,7 @@ public partial class CreateTripPopupViewModel(HttpClient httpClient, IErrorHandl
         // todo kan også bruge validering i frontenden via nuget toolkit 
         if (response.IsSuccessStatusCode is false)
         {
+            // todo error handling, vis fejl hvis de skelr og luk ike selv dialogen, 
             await Close(CreateTripDialogResults.Error);
             return;
         }

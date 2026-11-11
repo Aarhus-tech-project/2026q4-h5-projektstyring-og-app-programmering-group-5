@@ -6,9 +6,9 @@ namespace H5FlightApi.Features.Trips.Requests.GetTrips;
 
 public record GetTripRequest(Guid Id);
 
-public class GetTripRequestHandler(AppDbContext appDbContext, IValidator<GetTripRequest> validator, CancellationToken cancellationToken)
+public class GetTripRequestHandler(AppDbContext appDbContext, IValidator<GetTripRequest> validator)
 {
-    public async Task<IResult> HandleAsync(GetTripRequest request)
+    public async Task<IResult> HandleAsync(GetTripRequest request, CancellationToken cancellationToken)
     {
         var isValid = await validator.ValidateAsync(request, cancellationToken);
 
