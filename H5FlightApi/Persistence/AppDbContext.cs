@@ -10,6 +10,7 @@ public class AppDbContext : DbContext
     public DbSet<TripEvent> TripEvents { get; set; }
     public DbSet<Flight> Flights { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<FlightPlan> FlightPlans { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

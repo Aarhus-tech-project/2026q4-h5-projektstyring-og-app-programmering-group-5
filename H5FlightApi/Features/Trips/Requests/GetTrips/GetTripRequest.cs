@@ -18,7 +18,7 @@ public class GetTripRequestHandler(AppDbContext appDbContext, IValidator<GetTrip
         }
 
         var tripToFetch = await appDbContext.Trips
-            .Include(t => t.Flight)
+            .Include(t => t.FlightPlan).ThenInclude(f => f.Flights)
             .Include(t => t.TripEvents).ThenInclude(te => te.Place)
             .FirstOrDefaultAsync(t => t.Id == request.Id, cancellationToken);
 

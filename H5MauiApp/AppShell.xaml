@@ -7,7 +7,6 @@
     xmlns:signupPage="clr-namespace:H5MauiApp.Pages.SignupPage"
     xmlns:myTripsPage="clr-namespace:H5MauiApp.Pages.MyTripsPage"
     Shell.FlyoutBehavior="Disabled"
-    Shell.NavBarIsVisible="False"
     Title="H5MauiApp">
 
     <ShellContent

@@ -17,7 +17,15 @@ public partial class TripDetailsViewModel(IErrorHandler errorHandler, HttpClient
 
     // todo this ruins go back button ? 
     [RelayCommand]
-    public async Task GoToCreateFlightPage() => await errorHandler.Guard(async () => { await Shell.Current.GoToAsync(nameof(CreateFlightView)); });
+    public async Task GoToCreateFlightPage() => await errorHandler.Guard(async () =>
+    {
+        var parameters = new ShellNavigationQueryParameters
+        {
+            ["TripId"] = Trip.Id
+        };
+
+        await Shell.Current.GoToAsync(nameof(CreateFlightView), parameters);
+    });
 
     [RelayCommand]
     public async Task GoToSelectSightSeeingPage() => await errorHandler.Guard(async () =>
@@ -46,3 +54,6 @@ public partial class TripDetailsViewModel(IErrorHandler errorHandler, HttpClient
         Trip = trip;
     });
 }
+
+// todo has internet check før http kald samt vis fejl hvis ikke. 
+// todo timeout på http kald  

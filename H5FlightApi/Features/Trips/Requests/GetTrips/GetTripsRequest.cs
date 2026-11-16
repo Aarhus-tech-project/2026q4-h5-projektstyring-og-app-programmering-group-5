@@ -20,7 +20,10 @@ public class GetTripsRequestHandler(ICurrentUserService currentUserService, AppD
             return Results.Unauthorized();
         }
 
-        var tripsToReturn = await appDbContext.Trips.Where(t => t.UserId == userIdClaim.Value).ToListAsync(cancellationToken);
+        var tripsToReturn = await appDbContext.Trips.AsNoTracking().Where(t => t.UserId == userIdClaim.Value)
+            .Include(t => t.FlightPlan).ThenInclude(fp => fp!.Flights)
+            .Include(t => t.TripEvents).ThenInclude(te => te.Place)
+            .ToListAsync(cancellationToken);
 
         return Results.Ok(tripsToReturn);
     }

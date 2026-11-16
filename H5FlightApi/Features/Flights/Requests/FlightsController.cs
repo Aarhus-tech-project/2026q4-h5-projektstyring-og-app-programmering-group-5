@@ -26,7 +26,7 @@ public class FlightsController(IMessageBus mediator) : ControllerBase
     }
 
     [HttpPost("/flight/select")]
-    public async Task<IResult> SelectFlight([FromBody] SelectFlightRequest request)
+    public async Task<IResult> SelectFlight([FromBody] CreateFlightPlanRequest request)
     {
         return await mediator.InvokeAsync<IResult>(request);
     }

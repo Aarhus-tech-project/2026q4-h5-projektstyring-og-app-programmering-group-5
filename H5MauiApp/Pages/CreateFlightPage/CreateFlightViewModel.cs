@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -13,6 +14,7 @@ using H5MauiApp.Services.AlertService;
 
 namespace H5MauiApp.Pages.CreateFlightPage;
 
+[QueryProperty(nameof(TripId), "TripId")]
 public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClient httpClient, IAlertService alertService) : ObservableObject
 {
     // Todo husk at dobblet tjekke der bliver retrned på dialoger med alert errors 
@@ -21,6 +23,7 @@ public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClien
     [ObservableProperty] private Country? destinationCountry;
     [ObservableProperty] private DateTime departureDate = DateTime.Today;
     [ObservableProperty] private DateTime returnDate = DateTime.Today;
+    [ObservableProperty] private Guid tripId;
 
     public GetFlightsRequest? GetFlightsRequest = null;
 
@@ -148,7 +151,6 @@ public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClien
         // await GotoSelectFlightView();
     });
 
-
     partial void OnSelectedDepartureFlightChanged(FlightOption? value)
     {
         if (value is null) return;
@@ -163,8 +165,91 @@ public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClien
     [RelayCommand(CanExecute = nameof(CanConfirmTrip))]
     public async Task ConfirmTrip() => await errorHandler.Guard(async () =>
     {
-        // todo opret fly data i apiet med det. 
+        var outboundFlight = SelectedDepartureFlight;
+        var returnFlight = SelectedReturnFlight;
+
+        if (outboundFlight is null || returnFlight is null)
+        {
+            await alertService.ShowAlertAsync(AlertTitle.Error, "Select both departure and return flights");
+
+            return;
+        }
+
+        if (TripId == Guid.Empty)
+        {
+            await alertService.ShowAlertAsync(
+                AlertTitle.Error,
+                "No trip selected");
+
+            return;
+        }
+
+        var request = new CreateFlightPlanRequest(
+            TripId,
+            returnFlight.Price,
+            "DKK",
+            outboundFlight.TotalDuration,
+            returnFlight.TotalDuration,
+            outboundFlight.Flights.Select(MapFlightSegment).ToList(),
+            returnFlight.Flights.Select(MapFlightSegment).ToList());
+
+        using var response = await httpClient.PostAsJsonAsync(
+            "/flight/select",
+            request);
+
+        if (response.IsSuccessStatusCode is false)
+        {
+            await alertService.ShowHttpErrorAlertAsync(response);
+            return;
+        }
+
+        await Shell.Current.GoToAsync("..");
     });
+
+    private static FlightSegmentData MapFlightSegment(FlightSegment flight)
+    {
+        var departure = flight.DepartureAirport
+                        ?? throw new InvalidOperationException(
+                            "Flight is missing its departure airport");
+
+        var arrival = flight.ArrivalAirport
+                      ?? throw new InvalidOperationException(
+                          "Flight is missing its arrival airport");
+
+        if (DateTime.TryParseExact(
+                departure.Time,
+                "yyyy-MM-dd HH:mm",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out var departureTime) is false)
+        {
+            throw new InvalidOperationException(
+                "Flight has an invalid departure time");
+        }
+
+        if (DateTime.TryParseExact(
+                arrival.Time,
+                "yyyy-MM-dd HH:mm",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out var arrivalTime) is false)
+        {
+            throw new InvalidOperationException(
+                "Flight has an invalid arrival time");
+        }
+
+        return new FlightSegmentData(
+            departure.Id ?? string.Empty,
+            departure.Name ?? string.Empty,
+            departureTime,
+            arrival.Id ?? string.Empty,
+            arrival.Name ?? string.Empty,
+            arrivalTime,
+            flight.Duration,
+            flight.Airline ?? string.Empty,
+            flight.FlightNumber ?? string.Empty,
+            flight.Airplane);
+    }
 
     private bool CanConfirmTrip() => SelectedDepartureFlight is not null && SelectedReturnFlight is not null;
 
@@ -259,3 +344,25 @@ public record GetFlightsRequest(
     string? DepartureToken,
     DateOnly OutboundDate,
     DateOnly ReturnDate);
+
+public record CreateFlightPlanRequest(
+    Guid TripId,
+    decimal TotalPrice,
+    string Currency,
+    int OutboundDuration,
+    int ReturnDuration,
+    List<FlightSegmentData> OutboundFlights,
+    List<FlightSegmentData> ReturnFlights);
+
+// Just the data for each segment inside the single request.
+public record FlightSegmentData(
+    string DepartureAirportCode,
+    string DepartureAirportName,
+    DateTime DepartureLocalTime,
+    string ArrivalAirportCode,
+    string ArrivalAirportName,
+    DateTime ArrivalLocalTime,
+    int Duration,
+    string Airline,
+    string FlightNumber,
+    string? Airplane);

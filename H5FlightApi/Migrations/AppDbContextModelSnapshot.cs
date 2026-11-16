@@ -28,12 +28,83 @@ namespace H5FlightApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Airline")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Airplane")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ArrivalAirportCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ArrivalAirportName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("ArrivalLocalTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("DepartureAirportCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("DepartureAirportName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DepartureLocalTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("Direction")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("FlightNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("FlightPlanId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlightPlanId");
+
+                    b.ToTable("Flights");
+                });
+
+            modelBuilder.Entity("H5FlightApi.Persistence.Entities.FlightPlan", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("OutboundDuration")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ReturnDuration")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("numeric");
+
                     b.Property<Guid>("TripId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Flights");
+                    b.ToTable("FlightPlans");
                 });
 
             modelBuilder.Entity("H5FlightApi.Persistence.Entities.Place", b =>
@@ -75,7 +146,7 @@ namespace H5FlightApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("FlightId")
+                    b.Property<Guid?>("FlightPlanId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Title")
@@ -87,7 +158,7 @@ namespace H5FlightApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FlightId")
+                    b.HasIndex("FlightPlanId")
                         .IsUnique();
 
                     b.HasIndex("UserId");
@@ -135,11 +206,22 @@ namespace H5FlightApi.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("H5FlightApi.Persistence.Entities.Flight", b =>
+                {
+                    b.HasOne("H5FlightApi.Persistence.Entities.FlightPlan", "FlightPlan")
+                        .WithMany("Flights")
+                        .HasForeignKey("FlightPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FlightPlan");
+                });
+
             modelBuilder.Entity("H5FlightApi.Persistence.Entities.Trip", b =>
                 {
-                    b.HasOne("H5FlightApi.Persistence.Entities.Flight", "Flight")
+                    b.HasOne("H5FlightApi.Persistence.Entities.FlightPlan", "FlightPlan")
                         .WithOne("Trip")
-                        .HasForeignKey("H5FlightApi.Persistence.Entities.Trip", "FlightId");
+                        .HasForeignKey("H5FlightApi.Persistence.Entities.Trip", "FlightPlanId");
 
                     b.HasOne("H5FlightApi.Persistence.Entities.User", "User")
                         .WithMany("Trips")
@@ -147,7 +229,7 @@ namespace H5FlightApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Flight");
+                    b.Navigation("FlightPlan");
 
                     b.Navigation("User");
                 });
@@ -171,8 +253,10 @@ namespace H5FlightApi.Migrations
                     b.Navigation("Trip");
                 });
 
-            modelBuilder.Entity("H5FlightApi.Persistence.Entities.Flight", b =>
+            modelBuilder.Entity("H5FlightApi.Persistence.Entities.FlightPlan", b =>
                 {
+                    b.Navigation("Flights");
+
                     b.Navigation("Trip")
                         .IsRequired();
                 });

@@ -1,46 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:H5MauiApp.Pages.MyTripsPage"
-             xmlns:models="clr-namespace:H5MauiApp.ApiModels"
-             x:Class="H5MauiApp.Pages.MyTripsPage.MyTripsView"
-             x:DataType="local:MyTripsViewModel">
-    <VerticalStackLayout Padding="16" Spacing="12">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:H5MauiApp.Pages.MyTripsPage"
+    xmlns:models="clr-namespace:H5MauiApp.ApiModels"
+    x:Class="H5MauiApp.Pages.MyTripsPage.MyTripsView"
+    x:DataType="local:MyTripsViewModel">
+
+    <ContentPage.Resources>
+        <DataTemplate
+            x:Key="FlightSegmentTemplate"
+            x:DataType="models:Flight">
+
+            <Border
+                Padding="10"
+                Stroke="#DDDDDD"
+                StrokeThickness="1">
+
+                <VerticalStackLayout Spacing="4">
+                    <Label
+                        FontAttributes="Bold"
+                        Text="{Binding Direction}" />
+
+                    <Label
+                        Text="{Binding Position,
+                            StringFormat='Segment position: {0}'}" />
+
+                    <Label FontAttributes="Bold">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding DepartureAirportCode}" />
+                                <Span Text=" → " />
+                                <Span Text="{Binding ArrivalAirportCode}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label Text="{Binding Airline}" />
+
+                    <Label
+                        Text="{Binding FlightNumber,
+                            StringFormat='Flight: {0}'}" />
+
+                    <Label
+                        Text="{Binding DepartureAirportName,
+                            StringFormat='From: {0}'}" />
+
+                    <Label
+                        Text="{Binding DepartureLocalTime,
+                            StringFormat='Departure: {0:dd/MM/yyyy HH:mm}'}" />
+
+                    <Label
+                        Text="{Binding ArrivalAirportName,
+                            StringFormat='To: {0}'}" />
+
+                    <Label
+                        Text="{Binding ArrivalLocalTime,
+                            StringFormat='Arrival: {0:dd/MM/yyyy HH:mm}'}" />
+
+                    <Label
+                        Text="{Binding Duration,
+                            StringFormat='Flight time: {0} min'}" />
+
+                    <Label
+                        Text="{Binding Airplane,
+                            StringFormat='Aircraft: {0}'}" />
+                </VerticalStackLayout>
+            </Border>
+        </DataTemplate>
+    </ContentPage.Resources>
+
+    <Grid
+        Padding="16"
+        RowDefinitions="Auto,Auto,*"
+        RowSpacing="12">
 
         <Label
+            Grid.Row="0"
             Text="My trips"
             FontSize="24"
             FontAttributes="Bold" />
 
         <Button
+            Grid.Row="1"
             Text="Create trip"
             Command="{Binding ShowPopupCommand}" />
 
         <CollectionView
+            Grid.Row="2"
             ItemsSource="{Binding Trips}"
-            HeightRequest="500"
             SelectionMode="None"
             EmptyView="You have no trips yet.">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Trip">
-                    <VerticalStackLayout Padding="12">
-                        <VerticalStackLayout.GestureRecognizers>
+                    <Border
+                        Padding="12"
+                        Margin="0,0,0,12"
+                        Stroke="#CCCCCC"
+                        StrokeThickness="1">
+
+                        <Border.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding GoToDetailedTripCommand,
-                                Source={RelativeSource AncestorType=local:MyTripsViewModel}, x:DataType=local:MyTripsViewModel}"
+                                    Source={RelativeSource
+                                        AncestorType=local:MyTripsViewModel},
+                                    x:DataType=local:MyTripsViewModel}"
                                 CommandParameter="{Binding .}" />
-                        </VerticalStackLayout.GestureRecognizers>
+                        </Border.GestureRecognizers>
 
-                        <Label
-                            Text="{Binding Title}"
-                            FontSize="18" />
-                    </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="12">
+                            <Label
+                                Text="{Binding Title}"
+                                FontSize="18"
+                                FontAttributes="Bold" />
+
+                            <Label
+                                IsVisible="False"
+                                Text="No flights selected yet.">
+
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding FlightPlan}"
+                                        Value="{x:Null}">
+
+                                        <Setter
+                                            Property="IsVisible"
+                                            Value="True" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+
+                            <VerticalStackLayout Spacing="12">
+                                <VerticalStackLayout.Triggers>
+                                    <DataTrigger
+                                        TargetType="VerticalStackLayout"
+                                        Binding="{Binding FlightPlan}"
+                                        Value="{x:Null}">
+
+                                        <Setter
+                                            Property="IsVisible"
+                                            Value="False" />
+                                    </DataTrigger>
+                                </VerticalStackLayout.Triggers>
+
+                                <Label FontAttributes="Bold">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Total price: " />
+
+                                            <Span
+                                                Text="{Binding
+                                                    FlightPlan.TotalPrice,
+                                                    StringFormat='{0:N2}'}" />
+
+                                            <Span Text=" " />
+
+                                            <Span
+                                                Text="{Binding
+                                                    FlightPlan.Currency}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <Label
+                                    Text="{Binding
+                                        FlightPlan.OutboundDuration,
+                                        StringFormat=
+                                            'Outbound duration: {0} min'}" />
+
+                                <Label
+                                    Text="{Binding FlightPlan.ReturnDuration,
+                                        StringFormat=
+                                            'Return duration: {0} min'}" />
+
+                                <BoxView
+                                    HeightRequest="1"
+                                    Color="#CCCCCC" />
+
+                                <HorizontalStackLayout Spacing="8">
+                                    <Label
+                                        Text="Flight segments"
+                                        FontSize="16"
+                                        FontAttributes="Bold"
+                                        VerticalOptions="Center" />
+
+                                    <Switch x:Name="SegmentsSwitch" />
+                                </HorizontalStackLayout>
+
+                                <VerticalStackLayout
+                                    Spacing="8"
+                                    IsVisible="{Binding IsToggled,
+                                        Source={x:Reference SegmentsSwitch},
+                                        x:DataType=Switch}"
+                                    BindableLayout.ItemsSource="{Binding FlightPlan.Flights}"
+                                    BindableLayout.ItemTemplate="{StaticResource
+                                            FlightSegmentTemplate}" />
+
+                                <Label
+                                    FontSize="12"
+                                    Text="All flight times are local." />
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-
         </CollectionView>
-
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>
