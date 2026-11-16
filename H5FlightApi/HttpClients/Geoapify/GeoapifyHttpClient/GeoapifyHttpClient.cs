@@ -18,6 +18,8 @@ public class GeoapifyHttpClient : IGeoapifyHttpClient
 
     public async Task<LocationResponse?> GetCityInfo(string city, string country)
     {
+        // todo should set url base on the http client. 
+        // also could register as actual http client in prgram rather than trangiant service? 
         string requestUri = $"https://api.geoapify.com/v1/geocode/search?text={city}, {country}&type=city&format=json&limit=1&apiKey={_apiKey}";
         var result = await _httpClient.GetAsync(requestUri);
 
