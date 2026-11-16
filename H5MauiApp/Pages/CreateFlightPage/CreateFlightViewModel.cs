@@ -36,12 +36,10 @@ public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClien
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ConfirmTripCommand))]
     private FlightOption? selectedReturnFlight;
 
-
     public IReadOnlyList<Country> Countries { get; } =
         CountryData.Countries.OrderBy(country => country.Name, StringComparer.OrdinalIgnoreCase).ToArray();
 
-    // todo is budy and cancelation token stuff, handle smeone spamming the buttons 
-
+    // todo is busy and prevent cuncurrent requests. 
     // todo ville være  nice hvis man selc kunne vælge lufthavn i stedet fro at få alle de store og så tage de 9 første. 
     // men det er fint for nu 
 
@@ -68,7 +66,6 @@ public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClien
 
         var departureCodes = airports.DepartureAirports.Select(a => a.IataCode).ToList();
         var destinationCodes = airports.ArrivalAirports.Select(a => a.IataCode).ToList();
-
 
         // todo vi skal have is busy indicator på 
         var getFlightsRequest = new GetFlightsRequest(departureCodes, destinationCodes,
@@ -107,8 +104,6 @@ public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClien
         {
             BestFlights.Add(flight);
         }
-
-        // todo select flight popup 
     });
 
     [RelayCommand]
@@ -153,12 +148,10 @@ public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClien
 
     partial void OnSelectedDepartureFlightChanged(FlightOption? value)
     {
+        // todo there is some bug here? 
         if (value is null) return;
-
-        // a new departure flight invalidates the old return flights
         SelectedReturnFlight = null;
         BestReturningFlights.Clear();
-
         GetReturningFlightCommand.Execute(value);
     }
 
@@ -171,31 +164,19 @@ public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClien
         if (outboundFlight is null || returnFlight is null)
         {
             await alertService.ShowAlertAsync(AlertTitle.Error, "Select both departure and return flights");
-
             return;
         }
 
         if (TripId == Guid.Empty)
         {
-            await alertService.ShowAlertAsync(
-                AlertTitle.Error,
-                "No trip selected");
-
+            await alertService.ShowAlertAsync(AlertTitle.Error, "No trip selected");
             return;
         }
 
-        var request = new CreateFlightPlanRequest(
-            TripId,
-            returnFlight.Price,
-            "DKK",
-            outboundFlight.TotalDuration,
-            returnFlight.TotalDuration,
-            outboundFlight.Flights.Select(MapFlightSegment).ToList(),
-            returnFlight.Flights.Select(MapFlightSegment).ToList());
+        var request = new CreateFlightPlanRequest(TripId, returnFlight.Price, "DKK", outboundFlight.TotalDuration, returnFlight.TotalDuration,
+            outboundFlight.Flights.Select(MapFlightSegment).ToList(), returnFlight.Flights.Select(MapFlightSegment).ToList());
 
-        using var response = await httpClient.PostAsJsonAsync(
-            "/flight/select",
-            request);
+        using var response = await httpClient.PostAsJsonAsync("/flight/select", request);
 
         if (response.IsSuccessStatusCode is false)
         {
@@ -208,34 +189,19 @@ public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClien
 
     private static FlightSegmentData MapFlightSegment(FlightSegment flight)
     {
-        var departure = flight.DepartureAirport
-                        ?? throw new InvalidOperationException(
-                            "Flight is missing its departure airport");
+        var departure = flight.DepartureAirport ?? throw new InvalidOperationException("Flight is missing its departure airport");
+        var arrival = flight.ArrivalAirport ?? throw new InvalidOperationException("Flight is missing its arrival airport");
 
-        var arrival = flight.ArrivalAirport
-                      ?? throw new InvalidOperationException(
-                          "Flight is missing its arrival airport");
-
-        if (DateTime.TryParseExact(
-                departure.Time,
-                "yyyy-MM-dd HH:mm",
-                CultureInfo.InvariantCulture,
-                DateTimeStyles.None,
+        if (DateTime.TryParseExact(departure.Time, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None,
                 out var departureTime) is false)
         {
-            throw new InvalidOperationException(
-                "Flight has an invalid departure time");
+            throw new InvalidOperationException("Flight has an invalid departure time");
         }
 
-        if (DateTime.TryParseExact(
-                arrival.Time,
-                "yyyy-MM-dd HH:mm",
-                CultureInfo.InvariantCulture,
-                DateTimeStyles.None,
+        if (DateTime.TryParseExact(arrival.Time, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None,
                 out var arrivalTime) is false)
         {
-            throw new InvalidOperationException(
-                "Flight has an invalid arrival time");
+            throw new InvalidOperationException("Flight has an invalid arrival time");
         }
 
         return new FlightSegmentData(
@@ -252,18 +218,6 @@ public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClien
     }
 
     private bool CanConfirmTrip() => SelectedDepartureFlight is not null && SelectedReturnFlight is not null;
-
-    // todo hvad hvis en method bliver kaldt både fra en method der er guarded og fra en der ikke er? så bliver man jo tvunget til at dobble catche n af stederne. 
-    // public async Task GotoSelectFlightView(FlightOption departureFlight, FlightOption returningflight)
-    // {
-    //     var parameters = new ShellNavigationQueryParameters
-    //     {
-    //         ["DepartureFlight"] = departureFlight,
-    //         ["ReturningFlight"] = returningflight
-    //     };
-    //
-    //     await Shell.Current.GoToAsync(nameof(SelectFlightView), parameters);
-    // }
 }
 
 // todo move, consider shared lib 
