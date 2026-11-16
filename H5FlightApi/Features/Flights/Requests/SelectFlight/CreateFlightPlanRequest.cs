@@ -14,7 +14,7 @@ public record CreateFlightPlanRequest(
     List<FlightSegmentData> OutboundFlights,
     List<FlightSegmentData> ReturnFlights);
 
-// Just the data for each segment inside the single request.
+// Just the data for each segment inside the single request.    
 public record FlightSegmentData(
     string DepartureAirportCode,
     string DepartureAirportName,

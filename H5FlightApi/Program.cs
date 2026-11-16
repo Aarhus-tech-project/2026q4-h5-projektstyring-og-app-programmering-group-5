@@ -67,8 +67,11 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddSingleton<IAppConfigService, AppConfigService>();
 
-// Use add http client instead of serivce? research 
-builder.Services.AddTransient<IGeoapifyHttpClient, GeoapifyHttpClient>();
+builder.Services.AddHttpClient<IGeoapifyHttpClient, GeoapifyHttpClient>(client =>
+{
+    client.BaseAddress = new Uri("https://api.geoapify.com/");
+    client.Timeout = TimeSpan.FromSeconds(30);
+});
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));

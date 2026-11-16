@@ -18,6 +18,7 @@ public class GetFlightsRequestHandler(IAppConfigService appConfigService)
     {
         // todo validering 
 
+        // Todo extract to own http client.
         using var client = new SerpApiClient(appConfigService.SerpApiApiKey);
 
         var parameters = new Dictionary<string, string>();

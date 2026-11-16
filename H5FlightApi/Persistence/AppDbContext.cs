@@ -5,6 +5,8 @@ namespace H5FlightApi.Persistence;
 
 public class AppDbContext : DbContext
 {
+    // Todo db entities and queries are NOT scoped to the userid in the token. 
+    // a user can access another users data since the queries do not scope for auth token. 
     public DbSet<Trip> Trips { get; set; }
     public DbSet<Place> Places { get; set; }
     public DbSet<TripEvent> TripEvents { get; set; }

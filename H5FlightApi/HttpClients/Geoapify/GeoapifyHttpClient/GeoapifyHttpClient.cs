@@ -18,7 +18,7 @@ public class GeoapifyHttpClient : IGeoapifyHttpClient
     public async Task<LocationResponse?> GetCityInfo(string city, string country)
     {
         // Todo add base url to client
-        string requestUri = $"https://api.geoapify.com/v1/geocode/search?text={city}, {country}&type=city&format=json&limit=1&apiKey={_apiKey}";
+        string requestUri = $"v1/geocode/search?text={city}, {country}&type=city&format=json&limit=1&apiKey={_apiKey}";
         var result = await _httpClient.GetAsync(requestUri);
 
         LocationResponse? content = await result.Content.ReadFromJsonAsync<LocationResponse>();
@@ -28,7 +28,7 @@ public class GeoapifyHttpClient : IGeoapifyHttpClient
 
     public async Task<GeoJsonFeatureCollection?> GetPointsOfInterestInCity(string placeId)
     {
-        string requestUri = $"https://api.geoapify.com/v2/places?categories=tourism&filter=place:{placeId}&limit=20&apiKey={_apiKey}";
+        string requestUri = $"v2/places?categories=tourism&filter=place:{placeId}&limit=20&apiKey={_apiKey}";
 
         var result = await _httpClient.GetAsync(requestUri);
 
