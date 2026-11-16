@@ -7,12 +7,12 @@ namespace H5MauiApp.Services.AlertService;
 
 public class AlertService : IAlertService
 {
-    public async Task ShowAlert(AlertTitle title, string message)
+    public async Task ShowAlertAsync(AlertTitle title, string message)
     {
         await Shell.Current.DisplayAlertAsync(title.ToString(), message, "Close");
     }
 
-    public async Task ShowHttpErrorAlert(HttpResponseMessage response)
+    public async Task ShowHttpErrorAlertAsync(HttpResponseMessage response)
     {
         var message = await response.Content.ReadAsStringAsync();
         var title = AlertTitle.Error;
@@ -32,6 +32,8 @@ public class AlertService : IAlertService
         return errors.Count > 0;
     }
 }
+
+// todo burde  måske logge selv i vores handle alert errors 
 
 public enum AlertTitle
 {

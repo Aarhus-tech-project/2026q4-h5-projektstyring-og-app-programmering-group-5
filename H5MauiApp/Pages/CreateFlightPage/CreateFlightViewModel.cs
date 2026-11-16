@@ -8,6 +8,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using H5MauiApp.ApiModels;
 using H5MauiApp.Data;
 using H5MauiApp.ErrorHandling;
+using H5MauiApp.Pages.SelectFlightPage;
 using H5MauiApp.Services.AlertService;
 
 namespace H5MauiApp.Pages.CreateFlightPage;
@@ -21,17 +22,25 @@ public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClien
     [ObservableProperty] private DateTime departureDate = DateTime.Today;
     [ObservableProperty] private DateTime returnDate = DateTime.Today;
 
+    public GetFlightsRequest? GetFlightsRequest = null;
+
     public ObservableCollection<FlightOption> BestFlights { get; } = new();
+    public ObservableCollection<FlightOption> BestReturningFlights { get; } = new();
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ConfirmTripCommand))]
+    private FlightOption? selectedDepartureFlight;
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ConfirmTripCommand))]
+    private FlightOption? selectedReturnFlight;
+
 
     public IReadOnlyList<Country> Countries { get; } =
-        CountryData.Countries
-            .OrderBy(
-                country => country.Name,
-                StringComparer.OrdinalIgnoreCase
-            )   
-            .ToArray();
+        CountryData.Countries.OrderBy(country => country.Name, StringComparer.OrdinalIgnoreCase).ToArray();
 
     // todo is budy and cancelation token stuff, handle smeone spamming the buttons 
+
+    // todo ville være  nice hvis man selc kunne vælge lufthavn i stedet fro at få alle de store og så tage de 9 første. 
+    // men det er fint for nu 
 
     [RelayCommand]
     public async Task GetAirports() => await errorHandler.Guard(async () =>
@@ -42,7 +51,7 @@ public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClien
 
         if (getAirportsResponse.IsSuccessStatusCode is false)
         {
-            await alertService.ShowHttpErrorAlert(getAirportsResponse);
+            await alertService.ShowHttpErrorAlertAsync(getAirportsResponse);
             return;
         }
 
@@ -50,7 +59,7 @@ public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClien
 
         if (airports is null || airports.ArrivalAirports.Count == 0 || airports.DepartureAirports.Count == 0)
         {
-            await alertService.ShowAlert(AlertTitle.Error, "Could not get airports");
+            await alertService.ShowAlertAsync(AlertTitle.Error, "Could not get airports");
             return;
         }
 
@@ -62,49 +71,9 @@ public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClien
         var getFlightsRequest = new GetFlightsRequest(departureCodes, destinationCodes,
             null, DateOnly.FromDateTime(DepartureDate), DateOnly.FromDateTime(ReturnDate));
 
-        // var getFlightsRequest = new GetFlightsRequest(
-        //     new List<string>
-        //     {
-        //         "YVR", "YUL", "YEG", "YOW", "YWG",
-        //         "YHZ", "YLW", "YQB", "YHM", "YQG"
-        //     },
-        //     new List<string>
-        //     {
-        //         "ATL", "BOS", "BNA", "AUS", "ABQ",
-        //         "BDL", "BUF", "BOI", "BHM", "ALB"
-        //     },
-        //     null,
-        //     new DateOnly(2026, 11, 13),
-        //     new DateOnly(2026, 11, 16));
+        // store for later usage. 
+        GetFlightsRequest = getFlightsRequest;
 
-        // var getFlightsRequest = new GetFlightsRequest(
-        //     new List<string> { "ATL", "DFW", "DEN", "ORD", "LAX" },
-        //     new List<string> { "YYZ", "YVR", "YUL", "YYC", "YEG" },
-        //     null,
-        //     DateOnly.FromDateTime(DepartureDate),
-        //     DateOnly.FromDateTime(ReturnDate));
-        //
-        // var getFlightsRequest = new GetFlightsRequest(
-        //     new List<string>
-        //     {
-        //         "YMF", "YBW", "YTP", "ZNA", "YZZ"
-        //     },
-        //     new List<string>
-        //     {
-        //         "NUP", "PPV", "BYW", "ATT", "PDB"
-        //     },
-        //     null,
-        //     new DateOnly(2026, 11, 13),
-        //     new DateOnly(2026, 11, 18));
-        //
-        // var getFlightsRequest = new GetFlightsRequest(
-        //     new List<string> { "ATL", "DFW", "DEN", "ORD", "LAX" },
-        //     new List<string> { "YYZ", "YVR", "YUL", "YYC", "YEG" },
-        //     null,
-        //     new DateOnly(2026, 11, 13),
-        //     new DateOnly(2026, 11, 18));
-
-        //
         // // todo serpaip can throw erros if nothing is fond with request. 
         // what to do if returning flight cant be found on a given date, suggest oter flights? would also consue credits. 
 
@@ -116,26 +85,100 @@ public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClien
 
         if (getFlightsResponse.IsSuccessStatusCode is false)
         {
-            await alertService.ShowHttpErrorAlert(getFlightsResponse);
+            await alertService.ShowHttpErrorAlertAsync(getFlightsResponse);
             return;
         }
 
-        var flights = await getFlightsResponse.Content
-            .ReadFromJsonAsync<List<FlightOption>>() ?? new List<FlightOption>();
+        var flights = await getFlightsResponse.Content.ReadFromJsonAsync<List<FlightOption>>() ?? new List<FlightOption>();
 
         if (flights is null || flights.Count == 0)
         {
-            await alertService.ShowAlert(AlertTitle.Error, "Could not get flights");
+            await alertService.ShowAlertAsync(AlertTitle.Error, "Could not get flights");
             return;
         }
 
+        SelectedDepartureFlight = null;
         BestFlights.Clear();
 
         foreach (var flight in flights)
         {
             BestFlights.Add(flight);
         }
+
+        // todo select flight popup 
     });
+
+    [RelayCommand]
+    public async Task GetReturningFlight(FlightOption flightOption) => await errorHandler.Guard(async () =>
+    {
+        if (GetFlightsRequest is null)
+        {
+            await alertService.ShowAlertAsync(AlertTitle.Error, "get flights request was null");
+            return;
+        }
+
+        var getFlightsResponse = await httpClient.PostAsJsonAsync("/flights",
+            new GetFlightsRequest(GetFlightsRequest.DepartureAirports, GetFlightsRequest.ArrivalAirports, flightOption.DepartureToken,
+                GetFlightsRequest.OutboundDate, GetFlightsRequest.ReturnDate));
+
+        if (getFlightsResponse.IsSuccessStatusCode is false)
+        {
+            await alertService.ShowHttpErrorAlertAsync(getFlightsResponse);
+            return;
+        }
+
+        var flights = await getFlightsResponse.Content.ReadFromJsonAsync<List<FlightOption>>() ?? new List<FlightOption>();
+
+        if (flights is null || flights.Count == 0)
+        {
+            await alertService.ShowAlertAsync(AlertTitle.Error, "Could not get return flights");
+            return;
+        }
+
+        BestReturningFlights.Clear();
+
+        foreach (var flight in flights)
+        {
+            BestReturningFlights.Add(flight);
+        }
+
+        // todo reseach calling navigation method inside of relay command how does that work? and when does this task retunr and fisnish; 
+        // GetReturningFlight calls await on navigation, does GetReturningFlight end right away or does it awat ant technally stay smewher util lthe enxt page isdestroyed?
+        // todo no need to gaurd here 
+        // await GotoSelectFlightView();
+    });
+
+
+    partial void OnSelectedDepartureFlightChanged(FlightOption? value)
+    {
+        if (value is null) return;
+
+        // a new departure flight invalidates the old return flights
+        SelectedReturnFlight = null;
+        BestReturningFlights.Clear();
+
+        GetReturningFlightCommand.Execute(value);
+    }
+
+    [RelayCommand(CanExecute = nameof(CanConfirmTrip))]
+    public async Task ConfirmTrip() => await errorHandler.Guard(async () =>
+    {
+        // todo opret fly data i apiet med det. 
+    });
+
+    private bool CanConfirmTrip() => SelectedDepartureFlight is not null && SelectedReturnFlight is not null;
+
+    // todo hvad hvis en method bliver kaldt både fra en method der er guarded og fra en der ikke er? så bliver man jo tvunget til at dobble catche n af stederne. 
+    // public async Task GotoSelectFlightView(FlightOption departureFlight, FlightOption returningflight)
+    // {
+    //     var parameters = new ShellNavigationQueryParameters
+    //     {
+    //         ["DepartureFlight"] = departureFlight,
+    //         ["ReturningFlight"] = returningflight
+    //     };
+    //
+    //     await Shell.Current.GoToAsync(nameof(SelectFlightView), parameters);
+    // }
 }
 
 // todo move, consider shared lib 
@@ -151,6 +194,7 @@ public sealed class FlightsResponse
 public sealed class FlightOption
 {
     [JsonIgnore] public FlightSegment? FirstFlight => Flights.FirstOrDefault();
+    [JsonIgnore] public FlightSegment? LastFlight => Flights.LastOrDefault();
 
     public List<FlightSegment> Flights { get; set; } = new();
 

@@ -10,7 +10,7 @@
         <Button Text="Add flight" Command="{Binding GoToCreateFlightPageCommand}">
 
         </Button>
-        <Button Text="Add sight seeing spot">
+        <Button Text="Add sight seeing spot" Command="{Binding GoToSelectSightSeeingPageCommand}">
 
         </Button>
 

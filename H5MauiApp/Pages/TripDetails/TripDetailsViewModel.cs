@@ -4,11 +4,12 @@ using CommunityToolkit.Mvvm.Input;
 using H5MauiApp.ApiModels;
 using H5MauiApp.ErrorHandling;
 using H5MauiApp.Pages.CreateFlightPage;
+using H5MauiApp.Pages.SelectSightSeeingPage;
 using H5MauiApp.Services.AlertService;
 
 namespace H5MauiApp.Pages.TripDetails;
 
-[QueryProperty(nameof(TripId), "tripId")]
+[QueryProperty(nameof(TripId), "TripId")]
 public partial class TripDetailsViewModel(IErrorHandler errorHandler, HttpClient httpClient, IAlertService alertService) : ObservableObject
 {
     [ObservableProperty] private Guid tripId;
@@ -18,6 +19,12 @@ public partial class TripDetailsViewModel(IErrorHandler errorHandler, HttpClient
     [RelayCommand]
     public async Task GoToCreateFlightPage() => await errorHandler.Guard(async () => { await Shell.Current.GoToAsync(nameof(CreateFlightView)); });
 
+    [RelayCommand]
+    public async Task GoToSelectSightSeeingPage() => await errorHandler.Guard(async () =>
+    {
+        await Shell.Current.GoToAsync(nameof(SelectSightSeeingView));
+    });
+
     public async Task GetTripDetailsAsync() => await errorHandler.Guard(async () =>
     {
         // todo why is this 2x catching 
@@ -25,14 +32,14 @@ public partial class TripDetailsViewModel(IErrorHandler errorHandler, HttpClient
 
         if (result.IsSuccessStatusCode is false)
         {
-            await alertService.ShowHttpErrorAlert(result);
+            await alertService.ShowHttpErrorAlertAsync(result);
         }
 
         var trip = await result.Content.ReadFromJsonAsync<Trip>();
 
         if (trip is null)
         {
-            await alertService.ShowAlert(AlertTitle.Error, "Could not find trip with given id");
+            await alertService.ShowAlertAsync(AlertTitle.Error, "Could not find trip with given id");
             return;
         }
 

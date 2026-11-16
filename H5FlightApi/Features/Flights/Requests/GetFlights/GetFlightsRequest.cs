@@ -1,3 +1,4 @@
+using System.Text.Json;
 using SerpApi;
 
 namespace H5FlightApi.Features.Flights.Requests.GetFlights;
@@ -55,9 +56,25 @@ public class GetFlightsRequestHandler()
 
         // todo hvorfor fuck kan jeg ikeke debug det her lort. 
         // todo handle error here with no results, idk why i jsut inta crashes. 
+        // using var results = await client.SearchAsync(parameters);
+        // var bestFlights = results.Root.GetProperty("best_flights").Clone();
         using var results = await client.SearchAsync(parameters);
-        var bestFlights = results.Root.GetProperty("best_flights").Clone();
+        var root = results.Root;
 
-        return Results.Ok(bestFlights);
+        var flights = new List<JsonElement>();
+
+        if (root.TryGetProperty("best_flights", out var best))
+        {
+            flights.AddRange(best.EnumerateArray().Select(f => f.Clone()));
+        }
+
+        if (root.TryGetProperty("other_flights", out var other))
+        {
+            flights.AddRange(other.EnumerateArray().Select(f => f.Clone()));
+        }
+
+        return flights.Count > 0
+            ? Results.Ok(flights)
+            : Results.NotFound("No flights found");
     }
 }

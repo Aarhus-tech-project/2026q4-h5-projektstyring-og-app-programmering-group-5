@@ -17,7 +17,7 @@ public class GetAirportsRequestHandler()
 
         var airports = csv.GetRecords<AirportCsvRow>()
             .Where(r => r.scheduled_service == "yes")
-            .Where(r => r.type == "large_airport")
+            .Where(r => r.type == "large_airport" || r.type == "medium_airport")
             .Where(r => !string.IsNullOrWhiteSpace(r.iata_code))
             .Select(r => new Airport
             {

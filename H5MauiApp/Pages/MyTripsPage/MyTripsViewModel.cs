@@ -41,7 +41,7 @@ public partial class MyTripsViewModel(HttpClient httpClient, CreateTripPopup cre
     {
         var parameters = new ShellNavigationQueryParameters
         {
-            ["tripId"] = trip.Id
+            ["TripId"] = trip.Id
         };
 
         await Shell.Current.GoToAsync(nameof(TripDetailsView), parameters);

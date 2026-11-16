@@ -5,6 +5,8 @@ using H5MauiApp.Pages.CreateFlightPage;
 using H5MauiApp.Pages.LoginPage;
 using H5MauiApp.Pages.MyTripsPage;
 using H5MauiApp.Pages.Popups.CreateTrip;
+using H5MauiApp.Pages.SelectFlightPage;
+using H5MauiApp.Pages.SelectSightSeeingPage;
 using H5MauiApp.Pages.SignupPage;
 using Serilog;
 using H5MauiApp.Pages.TripDetails;
@@ -36,6 +38,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<TokenStore>();
         builder.Services.AddTransient<AuthHandler>();
 
+        // http client can only all my api, if i needed a new client for external apis, i need to change this. 
         builder.Services.AddHttpClient("Api", c => c.BaseAddress = new Uri("http://100.116.135.57:5132"))
             .AddHttpMessageHandler<AuthHandler>();
 
@@ -63,6 +66,12 @@ public static class MauiProgram
 
         builder.Services.AddTransient<CreateFlightViewModel>();
         builder.Services.AddTransient<CreateFlightView>();
+
+        builder.Services.AddTransient<SelectFlightViewModel>();
+        builder.Services.AddTransient<SelectFlightView>();
+
+        builder.Services.AddTransient<SelectSightSeeingViewModel>();
+        builder.Services.AddTransient<SelectSightSeeingView>();
 
 #if DEBUG
         builder.Logging.AddDebug();

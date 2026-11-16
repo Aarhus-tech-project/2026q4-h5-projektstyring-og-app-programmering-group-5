@@ -2,6 +2,6 @@ namespace H5MauiApp.Services.AlertService;
 
 public interface IAlertService
 {
-    Task ShowAlert(AlertTitle title, string message);
-    Task ShowHttpErrorAlert(HttpResponseMessage response);
+    Task ShowAlertAsync(AlertTitle title, string message);
+    Task ShowHttpErrorAlertAsync(HttpResponseMessage response);
 }

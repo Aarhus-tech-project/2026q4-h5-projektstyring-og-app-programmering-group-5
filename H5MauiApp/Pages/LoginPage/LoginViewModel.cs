@@ -23,7 +23,7 @@ public partial class LoginViewModel(HttpClient httpClient, TokenStore tokenStore
 
         if (res.IsSuccessStatusCode is false)
         {
-            await alertService.ShowHttpErrorAlert(res);
+            await alertService.ShowHttpErrorAlertAsync(res);
             return;
         }
 
@@ -31,7 +31,7 @@ public partial class LoginViewModel(HttpClient httpClient, TokenStore tokenStore
 
         if (token is null)
         {
-            await alertService.ShowAlert(AlertTitle.Error, "Could not read token from response");
+            await alertService.ShowAlertAsync(AlertTitle.Error, "Could not read token from response");
             return;
         }
 
