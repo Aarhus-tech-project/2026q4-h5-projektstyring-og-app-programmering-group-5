@@ -21,15 +21,6 @@ public partial class MyTripsView : ContentPage
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
-
-        // do you need try catch for global ex hadnling in thr app? 
-        try
-        {
-            await _myTripsViewModel.GetTripsAsync();
-        }
-        catch (Exception ex)
-        {
-            // Log the error and show an appropriate message.
-        }
+        await _myTripsViewModel.GetTripsAsync();
     }
 }
