@@ -3,8 +3,7 @@ using H5FlightApi.Services.AppConfigService;
 
 namespace H5FlightApi.HttpClients.Geoapify.GeoapifyHttpClient;
 
-// todo thi does not chnage the actuall http client and its jsut ar egular client being injectet, 
-// its not a uniqe client for itself, i dont think, research. 
+// Todo use "regular" httpclient for Di registration instead of transient service? 
 public class GeoapifyHttpClient : IGeoapifyHttpClient
 {
     private readonly HttpClient _httpClient;
@@ -18,8 +17,7 @@ public class GeoapifyHttpClient : IGeoapifyHttpClient
 
     public async Task<LocationResponse?> GetCityInfo(string city, string country)
     {
-        // todo should set url base on the http client. 
-        // also could register as actual http client in prgram rather than trangiant service? 
+        // Todo add base url to client
         string requestUri = $"https://api.geoapify.com/v1/geocode/search?text={city}, {country}&type=city&format=json&limit=1&apiKey={_apiKey}";
         var result = await _httpClient.GetAsync(requestUri);
 

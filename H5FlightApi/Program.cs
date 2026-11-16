@@ -51,15 +51,14 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 });
 
 // todo extract to config 
-builder.Services.AddSerilog(config =>
-    config
-        .MinimumLevel.Information()
-        .WriteTo.Console()
-        .WriteTo.File(
-            "logs/errors-.log",
-            restrictedToMinimumLevel: LogEventLevel.Error,
-            rollingInterval: RollingInterval.Day
-        )
+builder.Services.AddSerilog(config => config
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File(
+        "logs/errors-.log",
+        restrictedToMinimumLevel: LogEventLevel.Error,
+        rollingInterval: RollingInterval.Day
+    )
 );
 
 builder.Services.AddProblemDetails();
@@ -121,7 +120,6 @@ app.Run();
 
 
 // todo move 
-
 public static class ResultsExtensions
 {
     extension(Results)

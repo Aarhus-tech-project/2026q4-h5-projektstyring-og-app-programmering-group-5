@@ -13,8 +13,6 @@ public class GetAirportsRequestHandler()
     {
         using var csv = CsvReader.FromFile("Data/airports_with_iata.csv");
 
-        // todo consider adding not found 
-
         var airports = csv.GetRecords<AirportCsvRow>()
             .Where(r => r.scheduled_service == "yes")
             .Where(r => r.type == "large_airport" || r.type == "medium_airport")
@@ -31,15 +29,15 @@ public class GetAirportsRequestHandler()
             })
             .ToList();
 
-        var departureAirports = airports
-            .Where(a => a.IsoCountry == request.DepartureCountry)
-            .ToList();
+        if (airports.Count == 0)
+        {
+            return Results.NotFound("Could not find any airports");
+        }
 
-        var arrivalAirports = airports
-            .Where(a => a.IsoCountry == request.ArrivalCountry)
-            .ToList();
+        var departureAirports = airports.Where(a => a.IsoCountry == request.DepartureCountry).ToList();
 
-        // todo retun 2 lists of airpots lol 
+        var arrivalAirports = airports.Where(a => a.IsoCountry == request.ArrivalCountry).ToList();
+
         return (Results.Ok(new GetAirportsResponse(departureAirports, arrivalAirports)));
     }
 }

@@ -34,7 +34,7 @@ public class GetPlacesForCityRequestHandler(IGeoapifyHttpClient geoapifyHttpClie
 
         var places = PlaceConverter.GetPlaces(pointsOfInterrest);
 
-        // TODO : Generarlly, use dtos for responses. 
+        // todo Should use dtos, using db entities is not a good solution but. 
         return Results.Ok(places);
     }
 

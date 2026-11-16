@@ -1,12 +1,11 @@
 using FluentValidation;
-using H5FlightApi.HttpClients.Geoapify.Responses;
 using H5FlightApi.Persistence;
 using H5FlightApi.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace H5FlightApi.Features.SightSeeing.Requests.SelectTrip;
 
-// todo formatting 
+// todo formatting bruh 
 public record SSelectPlaceForTripRequest(
     string PlaceId,
     string? AddressLine1,
@@ -52,7 +51,6 @@ public class SelectPlaceForTripRequestHandler(AppDbContext appDbContext)
             };
 
             await appDbContext.Places.AddAsync(newPlace, cancellationToken);
-            // await appDbContext.SaveChangesAsync(cancellationToken);
 
             place = newPlace;
         }
@@ -69,8 +67,6 @@ public class SelectPlaceForTripRequestHandler(AppDbContext appDbContext)
 
     public class SelectPlaceForTripRequestHandlerValidator : AbstractValidator<SSelectPlaceForTripRequest>
     {
-        // TODO Test this validator with place request. make sure the nullalbe stuff like AddressLine1 ansd stuff is sortet oout 
-        // vaidator does not align with request. 
         public SelectPlaceForTripRequestHandlerValidator()
         {
             RuleFor(r => r.PlaceId).NotEmpty();

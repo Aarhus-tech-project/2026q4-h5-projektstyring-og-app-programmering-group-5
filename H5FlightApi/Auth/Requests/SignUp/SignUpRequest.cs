@@ -19,7 +19,7 @@ public class SignUpRequestHandler(AppDbContext appDbContext, IValidator<SignUpRe
             return Results.ValidationProblemOverride(isValid.ToDictionary());
         }
 
-        // Would make sence to use a combination of a factory fro creating the user as logic is required/related to the creaton. 
+        // Would make sence to use a combination of a factory for creating the user as logic is required/related to the creation. 
         // Make some database rule that makes username unique, and throw custom error if its not, catch the error and return response. 
         // current solution scales terrrible but works fine for now. 
         var users = await appDbContext.Users.ToListAsync();

@@ -1,8 +1,10 @@
 using System.Text.Json;
+using H5FlightApi.Services.AppConfigService;
 using SerpApi;
 
 namespace H5FlightApi.Features.Flights.Requests.GetFlights;
 
+// Todo bleh fix damn formatting
 public record GetFlightsRequest(
     List<string> DepartureAirports,
     List<string> ArrivalAirports,
@@ -10,13 +12,13 @@ public record GetFlightsRequest(
     DateOnly OutboundDate,
     DateOnly ReturnDate);
 
-public class GetFlightsRequestHandler()
+public class GetFlightsRequestHandler(IAppConfigService appConfigService)
 {
     public async Task<IResult> Handle(GetFlightsRequest request, CancellationToken cancellationToken)
     {
         // todo validering 
-        // todo smid cliet id ud i config. 
-        using var client = new SerpApiClient("992d7b46b506781711c6707a321a9d7d1df76c50c29f63258e577e308e6e54c0");
+
+        using var client = new SerpApiClient(appConfigService.SerpApiApiKey);
 
         var parameters = new Dictionary<string, string>();
 
@@ -52,13 +54,8 @@ public class GetFlightsRequestHandler()
             return Results.BadRequest("Invalid args for flights");
         }
 
-        // todo this can fail if there are no flights? handel it and reutnr not found responce. 
-
-        // todo hvorfor fuck kan jeg ikeke debug det her lort. 
-        // todo handle error here with no results, idk why i jsut inta crashes. 
-        // using var results = await client.SearchAsync(parameters);
-        // var bestFlights = results.Root.GetProperty("best_flights").Clone();
-        using var results = await client.SearchAsync(parameters);
+        // todo handle error when no flights are found.
+        using var results = await client.SearchAsync(parameters, cancellationToken);
         var root = results.Root;
 
         var flights = new List<JsonElement>();
@@ -73,8 +70,6 @@ public class GetFlightsRequestHandler()
             flights.AddRange(other.EnumerateArray().Select(f => f.Clone()));
         }
 
-        return flights.Count > 0
-            ? Results.Ok(flights)
-            : Results.NotFound("No flights found");
+        return flights.Count > 0 ? Results.Ok(flights) : Results.NotFound("No flights found");
     }
 }

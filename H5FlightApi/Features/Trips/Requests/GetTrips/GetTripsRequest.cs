@@ -14,7 +14,6 @@ public class GetTripsRequestHandler(ICurrentUserService currentUserService, AppD
     {
         var userIdClaim = currentUserService.UserId;
 
-        // todo test igen nu hvor vores claims fungere anderleses.  
         if (userIdClaim is null)
         {
             return Results.Unauthorized();
