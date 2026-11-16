@@ -43,3 +43,5 @@ public partial class LoginViewModel(HttpClient httpClient, TokenStore tokenStore
 
 // todo move 
 public record LoginRequest(string Username, string Password);
+
+// todo timepout på http cient er bare ikke en ting??? 

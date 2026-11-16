@@ -194,9 +194,21 @@ public sealed class FlightsResponse
 public sealed class FlightOption
 {
     [JsonIgnore] public FlightSegment? FirstFlight => Flights.FirstOrDefault();
+
     [JsonIgnore] public FlightSegment? LastFlight => Flights.LastOrDefault();
 
+    [JsonIgnore]
+    public string StopsDescription => Flights.Count switch
+    {
+        0 => "No flight segments",
+        1 => "Nonstop",
+        2 => "1 connection",
+        _ => $"{Flights.Count - 1} connections"
+    };
+
     public List<FlightSegment> Flights { get; set; } = new();
+
+    public List<FlightLayover> Layovers { get; set; } = new();
 
     public int Price { get; set; }
 
@@ -228,6 +240,17 @@ public sealed class AirportInfo
     public string? Name { get; set; }
     public string? Id { get; set; }
     public string? Time { get; set; }
+}
+
+public sealed class FlightLayover
+{
+    public string? Name { get; set; }
+
+    public string? Id { get; set; }
+
+    public int Duration { get; set; }
+
+    public bool Overnight { get; set; }
 }
 
 public record GetFlightsRequest(

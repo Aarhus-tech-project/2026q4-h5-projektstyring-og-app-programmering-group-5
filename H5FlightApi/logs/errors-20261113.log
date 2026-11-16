@@ -1,0 +1,236 @@
+2026-11-13 10:38:04.322 +01:00 [ERR] Invocation of GetFlightsRequest { DepartureAirports = System.Collections.Generic.List`1[System.String], ArrivalAirports = System.Collections.Generic.List`1[System.String], DepartureToken = , OutboundDate = 14.11.2026, ReturnDate = 16.11.2026 } failed!
+SerpApi.SerpApiException: Google Flights hasn't returned any results for this query.
+   at SerpApi.SerpApiClient.ThrowIfError(SerpApiResponse response)
+   at SerpApi.SerpApiClient.GetResponseAsync(String url, CancellationToken cancellationToken)
+   at SerpApi.SerpApiClient.SearchAsync(Dictionary`2 parameters, CancellationToken cancellationToken)
+   at H5FlightApi.Features.Flights.Requests.GetFlights.GetFlightsRequestHandler.Handle(GetFlightsRequest request, CancellationToken cancellationToken) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/GetFlights/GetFlightsRequest.cs:line 58
+   at Internal.Generated.WolverineHandlers.GetFlightsRequestHandler1689511256.HandleAsync(MessageContext context, CancellationToken cancellation)
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 293
+2026-11-13 10:38:04.355 +01:00 [ERR] An unhandled exception has occurred while executing the request.
+SerpApi.SerpApiException: Google Flights hasn't returned any results for this query.
+   at SerpApi.SerpApiClient.ThrowIfError(SerpApiResponse response)
+   at SerpApi.SerpApiClient.GetResponseAsync(String url, CancellationToken cancellationToken)
+   at SerpApi.SerpApiClient.SearchAsync(Dictionary`2 parameters, CancellationToken cancellationToken)
+   at H5FlightApi.Features.Flights.Requests.GetFlights.GetFlightsRequestHandler.Handle(GetFlightsRequest request, CancellationToken cancellationToken) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/GetFlights/GetFlightsRequest.cs:line 58
+   at Internal.Generated.WolverineHandlers.GetFlightsRequestHandler1689511256.HandleAsync(MessageContext context, CancellationToken cancellation)
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 293
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 308
+   at Wolverine.Runtime.Handlers.Executor.InvokeInlineAsync(Envelope envelope, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 150
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync[T](Object message, MessageBus bus, CancellationToken cancellation, Nullable`1 timeout, DeliveryOptions options) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 191
+   at H5FlightApi.Features.Flights.Requests.FlightsController.GetFlights(GetFlightsRequest request) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/FlightsController.cs:line 25
+   at lambda_method199(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+2026-11-13 10:39:40.166 +01:00 [ERR] Invocation of GetFlightsRequest { DepartureAirports = System.Collections.Generic.List`1[System.String], ArrivalAirports = System.Collections.Generic.List`1[System.String], DepartureToken = , OutboundDate = 14.11.2026, ReturnDate = 19.11.2026 } failed!
+SerpApi.SerpApiException: Google Flights hasn't returned any results for this query.
+   at SerpApi.SerpApiClient.ThrowIfError(SerpApiResponse response)
+   at SerpApi.SerpApiClient.GetResponseAsync(String url, CancellationToken cancellationToken)
+   at SerpApi.SerpApiClient.SearchAsync(Dictionary`2 parameters, CancellationToken cancellationToken)
+   at H5FlightApi.Features.Flights.Requests.GetFlights.GetFlightsRequestHandler.Handle(GetFlightsRequest request, CancellationToken cancellationToken) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/GetFlights/GetFlightsRequest.cs:line 58
+   at Internal.Generated.WolverineHandlers.GetFlightsRequestHandler1689511256.HandleAsync(MessageContext context, CancellationToken cancellation)
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 293
+2026-11-13 10:39:40.288 +01:00 [ERR] An unhandled exception has occurred while executing the request.
+SerpApi.SerpApiException: Google Flights hasn't returned any results for this query.
+   at SerpApi.SerpApiClient.ThrowIfError(SerpApiResponse response)
+   at SerpApi.SerpApiClient.GetResponseAsync(String url, CancellationToken cancellationToken)
+   at SerpApi.SerpApiClient.SearchAsync(Dictionary`2 parameters, CancellationToken cancellationToken)
+   at H5FlightApi.Features.Flights.Requests.GetFlights.GetFlightsRequestHandler.Handle(GetFlightsRequest request, CancellationToken cancellationToken) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/GetFlights/GetFlightsRequest.cs:line 58
+   at Internal.Generated.WolverineHandlers.GetFlightsRequestHandler1689511256.HandleAsync(MessageContext context, CancellationToken cancellation)
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 293
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 308
+   at Wolverine.Runtime.Handlers.Executor.InvokeInlineAsync(Envelope envelope, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 150
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync[T](Object message, MessageBus bus, CancellationToken cancellation, Nullable`1 timeout, DeliveryOptions options) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 191
+   at H5FlightApi.Features.Flights.Requests.FlightsController.GetFlights(GetFlightsRequest request) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/FlightsController.cs:line 25
+   at lambda_method199(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+2026-11-13 10:50:01.137 +01:00 [ERR] Invocation of GetFlightsRequest { DepartureAirports = System.Collections.Generic.List`1[System.String], ArrivalAirports = System.Collections.Generic.List`1[System.String], DepartureToken = , OutboundDate = 16.11.2026, ReturnDate = 19.11.2026 } failed!
+SerpApi.SerpApiException: Google Flights hasn't returned any results for this query.
+   at SerpApi.SerpApiClient.ThrowIfError(SerpApiResponse response)
+   at SerpApi.SerpApiClient.GetResponseAsync(String url, CancellationToken cancellationToken)
+   at SerpApi.SerpApiClient.SearchAsync(Dictionary`2 parameters, CancellationToken cancellationToken)
+   at H5FlightApi.Features.Flights.Requests.GetFlights.GetFlightsRequestHandler.Handle(GetFlightsRequest request, CancellationToken cancellationToken) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/GetFlights/GetFlightsRequest.cs:line 58
+   at Internal.Generated.WolverineHandlers.GetFlightsRequestHandler1689511256.HandleAsync(MessageContext context, CancellationToken cancellation)
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 293
+2026-11-13 10:50:01.262 +01:00 [ERR] An unhandled exception has occurred while executing the request.
+SerpApi.SerpApiException: Google Flights hasn't returned any results for this query.
+   at SerpApi.SerpApiClient.ThrowIfError(SerpApiResponse response)
+   at SerpApi.SerpApiClient.GetResponseAsync(String url, CancellationToken cancellationToken)
+   at SerpApi.SerpApiClient.SearchAsync(Dictionary`2 parameters, CancellationToken cancellationToken)
+   at H5FlightApi.Features.Flights.Requests.GetFlights.GetFlightsRequestHandler.Handle(GetFlightsRequest request, CancellationToken cancellationToken) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/GetFlights/GetFlightsRequest.cs:line 58
+   at Internal.Generated.WolverineHandlers.GetFlightsRequestHandler1689511256.HandleAsync(MessageContext context, CancellationToken cancellation)
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 293
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 308
+   at Wolverine.Runtime.Handlers.Executor.InvokeInlineAsync(Envelope envelope, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 150
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync[T](Object message, MessageBus bus, CancellationToken cancellation, Nullable`1 timeout, DeliveryOptions options) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 191
+   at H5FlightApi.Features.Flights.Requests.FlightsController.GetFlights(GetFlightsRequest request) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/FlightsController.cs:line 25
+   at lambda_method199(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+2026-11-13 16:48:46.811 +01:00 [ERR] Invocation of GetFlightsRequest { DepartureAirports = System.Collections.Generic.List`1[System.String], ArrivalAirports = System.Collections.Generic.List`1[System.String], DepartureToken = , OutboundDate = 14.11.2026, ReturnDate = 17.11.2026 } failed!
+System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Text.Json.JsonElement.GetProperty(String propertyName)
+   at H5FlightApi.Features.Flights.Requests.GetFlights.GetFlightsRequestHandler.Handle(GetFlightsRequest request, CancellationToken cancellationToken) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/GetFlights/GetFlightsRequest.cs:line 59
+   at Internal.Generated.WolverineHandlers.GetFlightsRequestHandler1689511256.HandleAsync(MessageContext context, CancellationToken cancellation)
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 293
+2026-11-13 16:48:46.845 +01:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Text.Json.JsonElement.GetProperty(String propertyName)
+   at H5FlightApi.Features.Flights.Requests.GetFlights.GetFlightsRequestHandler.Handle(GetFlightsRequest request, CancellationToken cancellationToken) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/GetFlights/GetFlightsRequest.cs:line 59
+   at Internal.Generated.WolverineHandlers.GetFlightsRequestHandler1689511256.HandleAsync(MessageContext context, CancellationToken cancellation)
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 293
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 308
+   at Wolverine.Runtime.Handlers.Executor.InvokeInlineAsync(Envelope envelope, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 150
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync[T](Object message, MessageBus bus, CancellationToken cancellation, Nullable`1 timeout, DeliveryOptions options) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 191
+   at H5FlightApi.Features.Flights.Requests.FlightsController.GetFlights(GetFlightsRequest request) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/FlightsController.cs:line 25
+   at lambda_method199(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+2026-11-13 16:49:44.162 +01:00 [ERR] Invocation of GetFlightsRequest { DepartureAirports = System.Collections.Generic.List`1[System.String], ArrivalAirports = System.Collections.Generic.List`1[System.String], DepartureToken = WyJDalJJVWkwNVYycExaMnN6TVVWQlJHcFphVUZDUnkwdExTMHRMUzB0Y0daaVozRXhOa0ZCUVVGQlIzSXpUVmxuVFRGNmNFZEJFZ3BSVWpjd2ZGRlNPRGs0R2dvSXNXa1FBQm9EUkV0TE9CeHdnNVlNIixbWyJGUkEiLCIyMDI2LTExLTE0IiwiRE9IIixudWxsLCJRUiIsIjcwIl0sWyJET0giLCIyMDI2LTExLTE0IiwiQk5FIixudWxsLCJRUiIsIjg5OCJdXV0=, OutboundDate = 14.11.2026, ReturnDate = 17.11.2026 } failed!
+System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Text.Json.JsonElement.GetProperty(String propertyName)
+   at H5FlightApi.Features.Flights.Requests.GetFlights.GetFlightsRequestHandler.Handle(GetFlightsRequest request, CancellationToken cancellationToken) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/GetFlights/GetFlightsRequest.cs:line 59
+   at Internal.Generated.WolverineHandlers.GetFlightsRequestHandler1689511256.HandleAsync(MessageContext context, CancellationToken cancellation)
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 293
+2026-11-13 16:49:44.170 +01:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Text.Json.JsonElement.GetProperty(String propertyName)
+   at H5FlightApi.Features.Flights.Requests.GetFlights.GetFlightsRequestHandler.Handle(GetFlightsRequest request, CancellationToken cancellationToken) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/GetFlights/GetFlightsRequest.cs:line 59
+   at Internal.Generated.WolverineHandlers.GetFlightsRequestHandler1689511256.HandleAsync(MessageContext context, CancellationToken cancellation)
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 293
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 308
+   at Wolverine.Runtime.Handlers.Executor.InvokeInlineAsync(Envelope envelope, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 150
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync[T](Object message, MessageBus bus, CancellationToken cancellation, Nullable`1 timeout, DeliveryOptions options) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 191
+   at H5FlightApi.Features.Flights.Requests.FlightsController.GetFlights(GetFlightsRequest request) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/FlightsController.cs:line 25
+   at lambda_method199(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+2026-11-13 16:49:50.005 +01:00 [ERR] Invocation of GetFlightsRequest { DepartureAirports = System.Collections.Generic.List`1[System.String], ArrivalAirports = System.Collections.Generic.List`1[System.String], DepartureToken = WyJDalJJVWkwNVYycExaMnN6TVVWQlJHcFphVUZDUnkwdExTMHRMUzB0Y0daaVozRXhOa0ZCUVVGQlIzSXpUVmxuVFRGNmNFZEJFZ3BGU3pVMmZFVkxORE13R2dvSTgzTVFBQm9EUkV0TE9CeHd2N0VOIixbWyJEVVMiLCIyMDI2LTExLTE0IiwiRFhCIixudWxsLCJFSyIsIjU2Il0sWyJEWEIiLCIyMDI2LTExLTE1IiwiQk5FIixudWxsLCJFSyIsIjQzMCJdXV0=, OutboundDate = 14.11.2026, ReturnDate = 17.11.2026 } failed!
+System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Text.Json.JsonElement.GetProperty(String propertyName)
+   at H5FlightApi.Features.Flights.Requests.GetFlights.GetFlightsRequestHandler.Handle(GetFlightsRequest request, CancellationToken cancellationToken) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/GetFlights/GetFlightsRequest.cs:line 59
+   at Internal.Generated.WolverineHandlers.GetFlightsRequestHandler1689511256.HandleAsync(MessageContext context, CancellationToken cancellation)
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 293
+2026-11-13 16:49:50.008 +01:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Text.Json.JsonElement.GetProperty(String propertyName)
+   at H5FlightApi.Features.Flights.Requests.GetFlights.GetFlightsRequestHandler.Handle(GetFlightsRequest request, CancellationToken cancellationToken) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/GetFlights/GetFlightsRequest.cs:line 59
+   at Internal.Generated.WolverineHandlers.GetFlightsRequestHandler1689511256.HandleAsync(MessageContext context, CancellationToken cancellation)
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 293
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 308
+   at Wolverine.Runtime.Handlers.Executor.InvokeInlineAsync(Envelope envelope, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 150
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync[T](Object message, MessageBus bus, CancellationToken cancellation, Nullable`1 timeout, DeliveryOptions options) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 191
+   at H5FlightApi.Features.Flights.Requests.FlightsController.GetFlights(GetFlightsRequest request) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/FlightsController.cs:line 25
+   at lambda_method199(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+2026-11-13 16:49:53.469 +01:00 [ERR] Invocation of GetFlightsRequest { DepartureAirports = System.Collections.Generic.List`1[System.String], ArrivalAirports = System.Collections.Generic.List`1[System.String], DepartureToken = WyJDalJJVWkwNVYycExaMnN6TVVWQlJHcFphVUZDUnkwdExTMHRMUzB0Y0daaVozRXhOa0ZCUVVGQlIzSXpUVmxuVFRGNmNFZEJFZ3BSVWpnNGZGRlNPRGs0R2dvSWdtY1FBQm9EUkV0TE9CeHdoUE1MIixbWyJEVVMiLCIyMDI2LTExLTE0IiwiRE9IIixudWxsLCJRUiIsIjg4Il0sWyJET0giLCIyMDI2LTExLTE0IiwiQk5FIixudWxsLCJRUiIsIjg5OCJdXV0=, OutboundDate = 14.11.2026, ReturnDate = 17.11.2026 } failed!
+System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Text.Json.JsonElement.GetProperty(String propertyName)
+   at H5FlightApi.Features.Flights.Requests.GetFlights.GetFlightsRequestHandler.Handle(GetFlightsRequest request, CancellationToken cancellationToken) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/GetFlights/GetFlightsRequest.cs:line 59
+   at Internal.Generated.WolverineHandlers.GetFlightsRequestHandler1689511256.HandleAsync(MessageContext context, CancellationToken cancellation)
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 293
+2026-11-13 16:49:53.473 +01:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Text.Json.JsonElement.GetProperty(String propertyName)
+   at H5FlightApi.Features.Flights.Requests.GetFlights.GetFlightsRequestHandler.Handle(GetFlightsRequest request, CancellationToken cancellationToken) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/GetFlights/GetFlightsRequest.cs:line 59
+   at Internal.Generated.WolverineHandlers.GetFlightsRequestHandler1689511256.HandleAsync(MessageContext context, CancellationToken cancellation)
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 293
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync(MessageContext context, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 308
+   at Wolverine.Runtime.Handlers.Executor.InvokeInlineAsync(Envelope envelope, CancellationToken cancellation) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 150
+   at Wolverine.Runtime.Handlers.Executor.InvokeAsync[T](Object message, MessageBus bus, CancellationToken cancellation, Nullable`1 timeout, DeliveryOptions options) in /home/runner/work/wolverine/wolverine/src/Wolverine/Runtime/Handlers/Executor.cs:line 191
+   at H5FlightApi.Features.Flights.Requests.FlightsController.GetFlights(GetFlightsRequest request) in /Users/nick/RiderProjects/H5FlightApi/H5FlightApi/Features/Flights/Requests/FlightsController.cs:line 25
+   at lambda_method199(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)

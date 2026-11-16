@@ -8,39 +8,151 @@
     Title="Create flight">
 
     <ContentPage.Resources>
-        <DataTemplate x:Key="FlightTemplate" x:DataType="local:FlightOption">
+        <DataTemplate
+            x:Key="FlightTemplate"
+            x:DataType="local:FlightOption">
+
             <Border
                 Padding="12"
                 Margin="16,6"
                 Stroke="#CCCCCC"
                 StrokeThickness="1">
 
-                <VerticalStackLayout Spacing="4">
-                    <Label Text="{Binding FirstFlight.Airline}" />
-
-                    <Label Text="{Binding FirstFlight.FlightNumber}" />
-
+                <VerticalStackLayout Spacing="8">
                     <Label
+                        FontAttributes="Bold"
                         Text="{Binding FirstFlight.DepartureAirport.Name,
                             StringFormat='From: {0}'}" />
 
                     <Label
+                        FontAttributes="Bold"
                         Text="{Binding LastFlight.ArrivalAirport.Name,
                             StringFormat='To: {0}'}" />
 
-                    <Label
-                        Text="{Binding FirstFlight.DepartureAirport.Time,
-                            StringFormat='Departure: {0}'}" />
+                    <Label Text="{Binding StopsDescription}" />
+
+                    <BoxView
+                        HeightRequest="1"
+                        Color="#CCCCCC" />
 
                     <Label
-                        Text="{Binding LastFlight.ArrivalAirport.Time,
-                            StringFormat='Arrival: {0}'}" />
+                        FontAttributes="Bold"
+                        Text="Flight segments" />
+
+                    <VerticalStackLayout
+                        Spacing="8"
+                        BindableLayout.ItemsSource="{Binding Flights}">
+
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="local:FlightSegment">
+                                <Border
+                                    Padding="10"
+                                    Stroke="#DDDDDD"
+                                    StrokeThickness="1">
+
+                                    <VerticalStackLayout Spacing="4">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Text="{Binding Airline}" />
+
+                                        <Label
+                                            Text="{Binding FlightNumber,
+                                                StringFormat='Flight: {0}'}" />
+
+                                        <Label
+                                            Text="{Binding DepartureAirport.Name,
+                                                StringFormat='From: {0}'}" />
+
+                                        <Label
+                                            Text="{Binding DepartureAirport.Id,
+                                                StringFormat='Airport: {0}'}" />
+
+                                        <Label
+                                            Text="{Binding DepartureAirport.Time,
+                                                StringFormat='Departure: {0}'}" />
+
+                                        <Label
+                                            Text="{Binding ArrivalAirport.Name,
+                                                StringFormat='To: {0}'}" />
+
+                                        <Label
+                                            Text="{Binding ArrivalAirport.Id,
+                                                StringFormat='Airport: {0}'}" />
+
+                                        <Label
+                                            Text="{Binding ArrivalAirport.Time,
+                                                StringFormat='Arrival: {0}'}" />
+
+                                        <Label
+                                            Text="{Binding Duration,
+                                                StringFormat='Flight: {0} min'}" />
+                                    </VerticalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="8">
+                        <VerticalStackLayout.Triggers>
+                            <DataTrigger
+                                TargetType="VerticalStackLayout"
+                                Binding="{Binding Layovers.Count}"
+                                Value="0">
+
+                                <Setter
+                                    Property="IsVisible"
+                                    Value="False" />
+                            </DataTrigger>
+                        </VerticalStackLayout.Triggers>
+
+                        <Label
+                            FontAttributes="Bold"
+                            Text="Connections / layovers" />
+
+                        <VerticalStackLayout
+                            Spacing="8"
+                            BindableLayout.ItemsSource="{Binding Layovers}">
+
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="local:FlightLayover">
+                                    <Border
+                                        Padding="10"
+                                        Stroke="#DDDDDD"
+                                        StrokeThickness="1">
+
+                                        <VerticalStackLayout Spacing="4">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                Text="{Binding Name}" />
+
+                                            <Label
+                                                Text="{Binding Id,
+                                                    StringFormat='Airport: {0}'}" />
+
+                                            <Label
+                                                Text="{Binding Duration,
+                                                    StringFormat='{0} min'}" />
+
+                                            <Label
+                                                IsVisible="{Binding Overnight}"
+                                                Text="Overnight layover" />
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+
+                    <BoxView
+                        HeightRequest="1"
+                        Color="#CCCCCC" />
 
                     <Label
                         Text="{Binding TotalDuration,
                             StringFormat='Total duration: {0} min'}" />
 
                     <Label
+                        FontAttributes="Bold"
                         Text="{Binding Price,
                             StringFormat='Price: {0} DKK'}" />
                 </VerticalStackLayout>
@@ -50,7 +162,10 @@
 
     <ScrollView>
         <VerticalStackLayout Spacing="8">
-            <VerticalStackLayout Padding="16" Spacing="8">
+            <VerticalStackLayout
+                Padding="16"
+                Spacing="8">
+
                 <Label
                     FontAttributes="Bold"
                     FontSize="18"
@@ -106,7 +221,7 @@
                 Text="Departure flights" />
 
             <CollectionView
-                HeightRequest="300"
+                HeightRequest="500"
                 ItemsSource="{Binding BestFlights}"
                 ItemTemplate="{StaticResource FlightTemplate}"
                 SelectionMode="Single"
@@ -127,7 +242,7 @@
                 Text="Return flights" />
 
             <CollectionView
-                HeightRequest="300"
+                HeightRequest="500"
                 ItemsSource="{Binding BestReturningFlights}"
                 ItemTemplate="{StaticResource FlightTemplate}"
                 SelectionMode="Single"
