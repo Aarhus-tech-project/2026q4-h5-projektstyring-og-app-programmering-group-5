@@ -24,7 +24,8 @@
         <CollectionView
             HeightRequest="400"
             ItemsSource="{Binding Places}"
-            SelectionMode="None">
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedPlace, Mode=TwoWay}">
 
             <CollectionView.EmptyView>
                 <Label Text="No places found." />
@@ -34,15 +35,14 @@
                 <DataTemplate x:DataType="models:Place">
                     <VerticalStackLayout Padding="0,8">
                         <Label Text="{Binding Name}" />
-                        <Label Text="{Binding AddressLine1}" />
                         <Label Text="{Binding AddressLine2}" />
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Button>
-
+        <Button Text="Select place"
+                Command="{Binding SelectPlaceCommand}">
         </Button>
 
     </VerticalStackLayout>

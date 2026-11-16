@@ -30,7 +30,12 @@ public partial class TripDetailsViewModel(IErrorHandler errorHandler, HttpClient
     [RelayCommand]
     public async Task GoToSelectSightSeeingPage() => await errorHandler.Guard(async () =>
     {
-        await Shell.Current.GoToAsync(nameof(SelectSightSeeingView));
+        var parameters = new ShellNavigationQueryParameters
+        {
+            ["TripId"] = Trip.Id
+        };
+
+        await Shell.Current.GoToAsync(nameof(SelectSightSeeingView), parameters);
     });
 
     public async Task GetTripDetailsAsync() => await errorHandler.Guard(async () =>
@@ -41,6 +46,7 @@ public partial class TripDetailsViewModel(IErrorHandler errorHandler, HttpClient
         if (result.IsSuccessStatusCode is false)
         {
             await alertService.ShowHttpErrorAlertAsync(result);
+            return; // todo check return statements. 
         }
 
         var trip = await result.Content.ReadFromJsonAsync<Trip>();

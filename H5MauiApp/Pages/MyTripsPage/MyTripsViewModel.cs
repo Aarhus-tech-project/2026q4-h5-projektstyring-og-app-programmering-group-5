@@ -62,3 +62,5 @@ public partial class MyTripsViewModel(HttpClient httpClient, CreateTripPopup cre
         }
     });
 }
+
+// todo fix navigation bug. 

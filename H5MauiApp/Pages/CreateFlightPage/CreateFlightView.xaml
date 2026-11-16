@@ -4,7 +4,6 @@
     xmlns:local="clr-namespace:H5MauiApp.Pages.CreateFlightPage"
     x:Class="H5MauiApp.Pages.CreateFlightPage.CreateFlightView"
     x:DataType="local:CreateFlightViewModel"
-    Shell.NavBarIsVisible="False"
     Title="Create flight">
 
     <ContentPage.Resources>

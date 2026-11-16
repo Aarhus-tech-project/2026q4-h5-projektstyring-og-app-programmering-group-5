@@ -38,7 +38,8 @@ public class AlertService : IAlertService
 public enum AlertTitle
 {
     Error,
-    ValidationError
+    ValidationError,
+    Success
 }
 
 // todo moev 
