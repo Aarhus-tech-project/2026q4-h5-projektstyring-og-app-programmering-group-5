@@ -29,6 +29,7 @@ public record FlightSegmentData(
 
 public class CreateFlightPlanRequestHandler(AppDbContext appDbContext)
 {
+    // todo should make a flight booking service. 
     public async Task<IResult> Handle(CreateFlightPlanRequest request, CancellationToken cancellationToken,
         IValidator<CreateFlightPlanRequest> validator)
     {

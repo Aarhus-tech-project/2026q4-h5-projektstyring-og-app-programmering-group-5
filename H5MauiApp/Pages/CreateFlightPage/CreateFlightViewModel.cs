@@ -17,8 +17,6 @@ namespace H5MauiApp.Pages.CreateFlightPage;
 [QueryProperty(nameof(TripId), "TripId")]
 public partial class CreateFlightViewModel(IErrorHandler errorHandler, HttpClient httpClient, IAlertService alertService) : ObservableObject
 {
-    // Todo husk at dobblet tjekke der bliver retrned på dialoger med alert errors 
-
     [ObservableProperty] private Country? departureCountry;
     [ObservableProperty] private Country? destinationCountry;
     [ObservableProperty] private DateTime departureDate = DateTime.Today;

@@ -3,7 +3,6 @@ using H5FlightApi.Services.AppConfigService;
 
 namespace H5FlightApi.HttpClients.Geoapify.GeoapifyHttpClient;
 
-// Todo use "regular" httpclient for Di registration instead of transient service? 
 public class GeoapifyHttpClient : IGeoapifyHttpClient
 {
     private readonly HttpClient _httpClient;
